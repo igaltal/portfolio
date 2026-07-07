@@ -693,6 +693,8 @@ a.tile-frame:hover { transform: scale(1.02); border-color: #3A3D4E; }
 
 .card-visual > * { transition: transform 600ms var(--ease-out); }
 .card:hover .card-visual > * { transform: translateY(-4px) scale(1.015); }
+.card-visual > img { width: 100%; height: 100%; object-fit: cover; object-position: top center; }
+.card:hover .card-visual > img { transform: scale(1.03); }
 
 .card-body { padding: 1.6rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
 @media (max-width: 640px) { .card-body { padding: 1.25rem 1.25rem 1.4rem; } }
