@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-blueprint="off">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BEAM-CTRL | Case Study | Igal Talmerom</title>
+  <meta name="description" content="Case study: BEAM-CTRL, a browser-based DMX lighting control console with a desktop app and phone and tablet remotes. Run your show from your phone." />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232B3FE4'/><text x='50' y='68' font-size='52' font-family='monospace' fill='white' text-anchor='middle'>IT</text></svg>" />
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#overview">Skip to case study</a>
+
+  <header class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html"><span class="mark">IT</span> Igal Talmerom</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../index.html#work" aria-current="page">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn bp-btn" data-blueprint-toggle aria-pressed="false" title="Blueprint mode" aria-label="Toggle blueprint mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </button>
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="case-hero container">
+      <p class="eyebrow reveal">Case study · Shipped product · 2024-2025</p>
+      <h1 class="reveal" style="--d: 80ms">BEAM-CTRL: run your lighting show <em>from your phone.</em></h1>
+      <p class="lede reveal" style="--d: 160ms">
+        A browser-based DMX lighting control console, with a desktop app for the physical
+        USB-DMX hardware, and phone and tablet remotes that control the same show in real
+        time. Professional lighting control, without the professional price tag or the
+        two-week learning curve.
+      </p>
+      <dl class="case-meta reveal" style="--d: 240ms">
+        <div><dt>Role</dt><dd>Solo: product design + full stack + hardware bridge</dd></div>
+        <div><dt>Status</dt><dd>Live · free during beta</dd></div>
+        <div><dt>Platform</dt><dd>Web + Electron desktop + phone &amp; tablet remotes</dd></div>
+        <div><dt>Stack</dt><dd>WebSocket real-time · Canvas · Three.js · Electron</dd></div>
+      </dl>
+    </section>
+
+    <div class="container">
+      <div class="case-layout">
+        <nav class="toc" aria-label="Case study contents">
+          <ol>
+            <li><a href="#overview"><span class="n">01</span>Overview</a></li>
+            <li><a href="#problem"><span class="n">02</span>Problem</a></li>
+            <li><a href="#goals"><span class="n">03</span>Goals</a></li>
+            <li><a href="#research"><span class="n">04</span>Research</a></li>
+            <li><a href="#personas"><span class="n">05</span>Personas</a></li>
+            <li><a href="#journey"><span class="n">06</span>User journey</a></li>
+            <li><a href="#ia"><span class="n">07</span>Information architecture</a></li>
+            <li><a href="#flow"><span class="n">08</span>User flow</a></li>
+            <li><a href="#wireframes"><span class="n">09</span>Wireframes</a></li>
+            <li><a href="#exploration"><span class="n">10</span>Exploration</a></li>
+            <li><a href="#final-ui"><span class="n">11</span>Final UI</a></li>
+            <li><a href="#design-system"><span class="n">12</span>Design system</a></li>
+            <li><a href="#prototype"><span class="n">13</span>Real-time &amp; touch</a></li>
+            <li><a href="#challenges"><span class="n">14</span>Challenges</a></li>
+            <li><a href="#results"><span class="n">15</span>Results</a></li>
+          </ol>
+        </nav>
+
+        <div>
+          <section class="cs" id="overview">
+            <div class="cs-head reveal">
+              <span class="num">01 · Overview</span>
+              <h2>A lighting console that lives in the browser.</h2>
+            </div>
+            <div class="prose reveal">
+              <p>
+                BEAM-CTRL controls DMX lighting rigs (moving heads, RGBW pars, lasers, fog) in real
+                time. The full console runs in a browser. A free desktop app (Electron) bridges to
+                the physical USB-DMX interface. And because everything speaks the same WebSocket
+                protocol, <strong>a phone or a tablet becomes a live remote for the same show</strong>:
+                register, download, sign in with the same account, plug in your interface.
+              </p>
+              <p>
+                <strong>Who it's for:</strong> mobile DJs, small venues, and event lighting operators
+                who need real control, but for whom professional consoles like grandMA are too
+                expensive and too complex.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="problem">
+            <div class="cs-head reveal">
+              <span class="num">02 · Problem</span>
+              <h2>Between the toy apps and the €40k console, there's nothing.</h2>
+            </div>
+            <div class="prose reveal">
+              <h3>User pain</h3>
+              <p>
+                A mobile DJ with six moving heads has bad options. Professional software (grandMA,
+                Daslight, Avolites) is powerful, desktop-bound, and takes weeks to learn. Cheap
+                mobile apps are toys that fall apart on a real gig. And in every case, the operator
+                is chained to the booth: to change a look mid-show, you walk back to the laptop.
+              </p>
+              <h3>The moment that matters</h3>
+              <p>
+                Live shows punish latency and mistakes instantly. If the blackout button is two
+                menus deep, or a slider lags half a second, the product is unusable, no matter how
+                pretty. The whole design starts from the worst moment: mid-show, dark room, sweaty
+                hands, something needs to change <em>now</em>.
+              </p>
+              <h3>Why existing solutions fall short</h3>
+              <ul>
+                <li><strong>Pro consoles &amp; software.</strong> Built for lighting designers with training. Overkill in cost and complexity for a DJ or a bar.</li>
+                <li><strong>Consumer lighting apps.</strong> Handle one fixture type, no real programming model, die when the rig grows.</li>
+                <li><strong>Sound-active mode on the fixture.</strong> The default fallback: lights blink at the beat with zero intent. It's what people settle for, not what they want.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cs" id="goals">
+            <div class="cs-head reveal">
+              <span class="num">03 · Goals</span>
+              <h2>Powerful enough for a show, simple enough for tonight's gig.</h2>
+            </div>
+            <div class="table-wrap reveal">
+              <table class="data">
+                <thead><tr><th>Lens</th><th>Goal</th><th>How the design delivers it</th></tr></thead>
+                <tbody>
+                  <tr><td>User</td><td>Panic actions are always one tap</td><td>BLACKOUT, FULL, ALL, MUSIC and the Grand Master live in a fixed top bar, in every mode, on every surface</td></tr>
+                  <tr><td>User</td><td>First light in minutes, not days</td><td>Fixture-first model: patch a fixture, select it, and the Control tab immediately shows its real capabilities</td></tr>
+                  <tr><td>User</td><td>Control from anywhere in the room</td><td>Phone and tablet remotes on the same WebSocket protocol as the desktop console</td></tr>
+                  <tr><td>Product</td><td>Real-time feel</td><td>Optimistic UI over WebSocket; sliders never wait for the server</td></tr>
+                  <tr><td>Product</td><td>Respect industry muscle memory</td><td>The Programs tab mirrors Daslight 5 conventions, so pros feel at home</td></tr>
+                  <tr><td>Business</td><td>Low barrier to entry</td><td>Browser-based, free during beta, one account across all surfaces</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="cs" id="research">
+            <div class="cs-head reveal">
+              <span class="num">04 · Research</span>
+              <h2>Learning from the consoles people already trust.</h2>
+              <p class="cs-sub">I studied Daslight 5, grandMA and club console conventions in depth, and watched how DJs and lighting operators actually work a show: where their hands go, what they touch every minute, and what they touch once a year.</p>
+            </div>
+            <div class="insights">
+              <div class="insight reveal"><div><h4>Muscle memory is the real spec</h4><p>Lighting operators think in banks, scenes, chases, and cues. Inventing new words or layouts for these would make the product harder, not simpler. That is why the Programs tab deliberately mirrors Daslight: pros bring their habits with them.</p></div></div>
+              <div class="insight reveal" style="--d: 60ms"><div><h4>Programming and performing are different mindsets</h4><p>Before the show you build carefully. During the show you react instantly. These need different screens: an editing space (Programs, Setup) and a performing space (Live, Music, Cues) with bigger targets and fewer options.</p></div></div>
+              <div class="insight reveal" style="--d: 120ms"><div><h4>Nothing matters if selection is confusing</h4><p>The fixture is the unit of thought: "those two beams on the right". A persistent fixture rail with clear selection state prevents the classic disaster of programming the wrong lights.</p></div></div>
+              <div class="insight reveal" style="--d: 180ms"><div><h4>Safety needs to be physical</h4><p>A Grand Master fader, a blackout button, undo/redo, and confirmation on destructive actions. On stage, a wrong tap in the dark must never be able to destroy the show.</p></div></div>
+            </div>
+          </section>
+
+          <section class="cs" id="personas">
+            <div class="cs-head reveal">
+              <span class="num">05 · User personas</span>
+              <h2>The mobile DJ and the venue operator.</h2>
+            </div>
+            <div class="grid-2">
+              <article class="persona reveal">
+                <div class="persona-head">
+                  <div class="persona-avatar" aria-hidden="true">DJ</div>
+                  <div><h4>The mobile DJ</h4><div class="role">Weddings and private events · owns a small rig · one-person show</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"I'm mixing with both hands. The lights get whatever attention is left."</div>
+                  <div><h5>Situation</h5><ul><li>Sets up and tears down the same rig every weekend</li><li>Runs sound and lights alone, at the same time</li></ul></div>
+                  <div><h5>Needs</h5><ul><li>Fast setup: patch once, reuse forever</li><li>Music-synced looks that run themselves (tap tempo, beat sync)</li><li>A phone remote for walking the floor during setup</li></ul></div>
+                  <div><h5>What BEAM-CTRL gives them</h5><ul><li>Music mode with simple presets on mobile (AMBIENT / PARTY / RAVE)</li><li>The phone remote: adjust from the dance floor, not the booth</li></ul></div>
+                </div>
+              </article>
+              <article class="persona reveal" style="--d: 100ms">
+                <div class="persona-head">
+                  <div class="persona-avatar alt" aria-hidden="true">OP</div>
+                  <div><h4>The venue operator</h4><div class="role">A bar or small club · fixed rig · different nights, different vibes</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"I know Daslight. I don't want to learn a whole new religion."</div>
+                  <div><h5>Situation</h5><ul><li>Programs looks once, performs them many nights</li><li>Sometimes hands the controls to whoever is working tonight</li></ul></div>
+                  <div><h5>Needs</h5><ul><li>Real programming depth: banks, scenes, chases, curves, cues</li><li>Conventions they already know from pro software</li><li>A simple performing surface for the non-expert on shift</li></ul></div>
+                  <div><h5>What BEAM-CTRL gives them</h5><ul><li>The Daslight-style Programs console, plus a TOUCH mode</li><li>Live mode with flash buttons and masters anyone can run</li></ul></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="cs" id="journey">
+            <div class="cs-head reveal">
+              <span class="num">06 · User journey</span>
+              <h2>One wedding gig, end to end.</h2>
+              <p class="cs-sub">The journey that shaped which feature lives on which surface.</p>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="journey" role="table" aria-label="User journey map of a gig">
+                <div class="jh">Stage</div>
+                <div class="stage">Setup (17:00)</div><div class="stage">Patch &amp; check</div><div class="stage">Program looks</div><div class="stage">The show</div><div class="stage">Strike (01:00)</div>
+                <div class="jh">Doing</div>
+                <div>Rig the lights, run cables, plug the USB-DMX interface into the laptop.</div>
+                <div>Patch fixtures, set addresses, walk the room to check every beam.</div>
+                <div>Build the evening's looks: dinner warm, dance floor, slow dance, finale.</div>
+                <div>Mix music with both hands. Lights must follow the night's energy.</div>
+                <div>Blackout, pack up, go home. Tonight's show becomes next week's template.</div>
+                <div class="jh">Surface</div>
+                <div>Desktop app on the laptop, at the booth.</div>
+                <div class="opp">Phone remote: adjust while standing under the fixture, not running back to the booth.</div>
+                <div>Desktop console: Programs tab, full depth.</div>
+                <div class="opp">Live + Music modes: big targets, tap tempo, beat sync. Tablet at the booth, phone in the pocket.</div>
+                <div>One tap: BLACKOUT in the fixed top bar.</div>
+                <div class="jh">Design takeaway</div>
+                <div class="opp">Setup must survive being done tired and fast.</div>
+                <div class="opp">The remote is not a gimmick. It saves 40 walks per gig.</div>
+                <div class="opp">Programming depth on desktop only. Don't cram it into the phone.</div>
+                <div class="opp">Performing needs fewer options and bigger buttons than programming.</div>
+                <div class="opp">Shows must be saveable and reusable as templates.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="ia">
+            <div class="cs-head reveal">
+              <span class="num">07 · Information architecture</span>
+              <h2>A fixed shell, seven modes, three surfaces.</h2>
+              <p class="cs-sub">The desktop console is a "fixed shell + modes" structure: safety and context never move, and the sidebar switches what the main area does.</p>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="ia-tree" role="img" aria-label="Information architecture: fixed top bar and fixture rail, sidebar modes Control, Programs, Live, Music, Cues, Setup, Settings">
+                <div class="ia-col">
+                  <div class="ia-col-title">Always visible</div>
+                  <div class="ia-node root"><b>Top bar</b><span>never moves, in every mode</span></div>
+                  <div class="ia-node hot"><b>Grand Master</b><span>+ ALL · MUSIC · BLACKOUT · FULL</span></div>
+                  <div class="ia-node"><b>Undo / Redo</b><span>+ connection status</span></div>
+                  <div class="ia-node root" style="margin-top:0.5rem;"><b>Fixture rail</b><span>search · DMX address · selection chips</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Build modes</div>
+                  <div class="ia-node root"><b>Control</b><span>hands on every parameter</span></div>
+                  <div class="ia-node"><b>Property rail</b><span>INTENSITY · PAN-TILT · COLOR · GOBO · BEAM · FX</span></div>
+                  <div class="ia-node root" style="margin-top:0.5rem;"><b>Programs</b><span>Daslight-style console</span></div>
+                  <div class="ia-node"><b>Banks · scenes · curves</b><span>+ fixture map, TOUCH mode</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Perform modes</div>
+                  <div class="ia-node root"><b>Live</b><span>scenes, flash, masters, tap tempo</span></div>
+                  <div class="ia-node root" style="margin-top:0.5rem;"><b>Music</b><span>4-deck DJ view, beat sync, AI director</span></div>
+                  <div class="ia-node root" style="margin-top:0.5rem;"><b>Cues</b><span>cue stack, GO / BACK, chase builder</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Configure</div>
+                  <div class="ia-node root"><b>Setup</b><span>the rig itself</span></div>
+                  <div class="ia-node"><b>Patch · groups · limits</b><span>safety limits per fixture</span></div>
+                  <div class="ia-node"><b>2D/3D visualizer</b><span>Three.js preview of the rig</span></div>
+                  <div class="ia-node root" style="margin-top:0.5rem;"><b>Settings</b><span>account · themes · density · DMX monitor</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="table-wrap reveal" style="margin-top:2rem;">
+              <table class="data">
+                <thead><tr><th>Surface</th><th>Navigation</th><th>Music mode</th><th>Role</th></tr></thead>
+                <tbody>
+                  <tr><td>Desktop (/app)</td><td>Sidebar, 7+ modes, full keyboard shortcuts</td><td>Full 4-deck DJ view</td><td>The console. Everything.</td></tr>
+                  <tr><td>Phone (/mobile)</td><td>Bottom tabs, touch-first, 28-44px targets</td><td>Simple presets: AMBIENT / PARTY / RAVE</td><td>The remote in your pocket.</td></tr>
+                  <tr><td>Tablet (/ipad)</td><td>Fixed 3-column layout, no tabs</td><td>BPM + mic input</td><td>The booth companion.</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="cs" id="flow">
+            <div class="cs-head reveal">
+              <span class="num">08 · User flow</span>
+              <h2>From blackout to first light.</h2>
+              <p class="cs-sub">The setup flow for a new user: the product must produce visible light fast, or trust dies at the door.</p>
+            </div>
+            <div class="panel reveal scroll-x">
+              <svg class="flow-svg" viewBox="0 0 920 250" role="img" aria-label="Flow: connect the interface, patch a fixture, select it, adjust intensity and color, save as a scene, then perform it in Live mode">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0 0 L10 5 L0 10 z" class="arrowhead"/>
+                  </marker>
+                </defs>
+                <rect class="node-accent" x="10" y="95" width="130" height="56" rx="12"/>
+                <text x="75" y="119" text-anchor="middle">Connect</text>
+                <text x="75" y="135" text-anchor="middle" class="t-dim">desktop app + USB-DMX</text>
+
+                <rect class="node" x="180" y="95" width="140" height="56" rx="12"/>
+                <text x="250" y="119" text-anchor="middle">Patch a fixture</text>
+                <text x="250" y="135" text-anchor="middle" class="t-dim">type + DMX address</text>
+
+                <polygon class="decision" points="430,75 510,123 430,171 350,123"/>
+                <text x="430" y="119" text-anchor="middle">Beam moves</text>
+                <text x="430" y="133" text-anchor="middle">as expected?</text>
+
+                <rect class="node" x="370" y="190" width="130" height="48" rx="12"/>
+                <text x="435" y="210" text-anchor="middle">Fix the address</text>
+                <text x="435" y="225" text-anchor="middle" class="t-dim">DMX monitor helps</text>
+
+                <rect class="node" x="550" y="95" width="150" height="56" rx="12"/>
+                <text x="625" y="115" text-anchor="middle">Build the look</text>
+                <text x="625" y="130" text-anchor="middle" class="t-dim">Control: dimmer · color</text>
+                <text x="625" y="143" text-anchor="middle" class="t-dim">pan/tilt joystick</text>
+
+                <rect class="node" x="550" y="20" width="150" height="48" rx="12"/>
+                <text x="625" y="40" text-anchor="middle">Save as scene</text>
+                <text x="625" y="55" text-anchor="middle" class="t-dim">into a bank</text>
+
+                <rect class="terminal" x="750" y="97" width="160" height="52" rx="26"/>
+                <text x="830" y="119" text-anchor="middle" class="t-light">Perform in Live</text>
+                <text x="830" y="134" text-anchor="middle" class="t-dim">flash · masters · tap tempo</text>
+
+                <path class="edge" d="M140 123 H176"/>
+                <path class="edge" d="M320 123 H346"/>
+                <path class="edge" d="M430 171 V186"/>
+                <text x="447" y="182" class="t-dim">no</text>
+                <path class="edge" d="M370 214 h-120 v-63"/>
+                <path class="edge edge-accent" d="M510 123 H546"/>
+                <text x="528" y="113" class="t-dim" text-anchor="middle">yes</text>
+                <path class="edge" d="M625 95 V72"/>
+                <path class="edge edge-accent" d="M700 44 h80 v49"/>
+                <path class="edge edge-accent" d="M700 123 H746"/>
+              </svg>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>The fixture-first rule:</strong> nothing in Control renders until a fixture is
+                selected, and once one is, the panels show only what that fixture can actually do.
+                A cheap par never shows gobo controls. This one rule kills both empty screens and
+                impossible actions.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="wireframes">
+            <div class="cs-head reveal">
+              <span class="num">09 · Wireframes</span>
+              <h2>Finding the shell.</h2>
+              <p class="cs-sub">The structural question: how do you fit a lighting console's density on one screen without burying the panic buttons? Three structures.</p>
+            </div>
+            <div class="grid-3">
+              <div class="wire reveal">
+                <svg viewBox="0 0 120 90" role="img" aria-label="Wireframe: everything on one screen">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="82" rx="6"/>
+                  <rect class="wf-box" x="8" y="8" width="25" height="35" rx="3"/>
+                  <rect class="wf-box" x="36" y="8" width="25" height="35" rx="3"/>
+                  <rect class="wf-box" x="64" y="8" width="22" height="35" rx="3"/>
+                  <rect class="wf-box" x="89" y="8" width="23" height="35" rx="3"/>
+                  <rect class="wf-box" x="8" y="47" width="34" height="35" rx="3"/>
+                  <rect class="wf-box" x="45" y="47" width="34" height="35" rx="3"/>
+                  <rect class="wf-box" x="82" y="47" width="30" height="35" rx="3"/>
+                </svg>
+                <div class="wire-label">Study 1: everything at once</div>
+                <p class="wire-note">Every panel on one screen, like a physical console. Authentic, and unusable on a laptop: everything too small to hit in the dark. <strong>Dropped.</strong></p>
+              </div>
+              <div class="wire reveal" style="--d: 80ms">
+                <svg viewBox="0 0 120 90" role="img" aria-label="Wireframe: wizard steps">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="82" rx="6"/>
+                  <rect class="wf-box" x="30" y="14" width="60" height="12" rx="6"/>
+                  <rect class="wf-box" x="30" y="32" width="60" height="12" rx="6"/>
+                  <rect class="wf-box" x="30" y="50" width="60" height="12" rx="6"/>
+                  <rect class="wf-cta" x="40" y="70" width="40" height="12" rx="6"/>
+                </svg>
+                <div class="wire-label">Study 2: guided steps</div>
+                <p class="wire-note">A wizard: pick fixtures → pick property → adjust. Great for beginners, fatal for live use: three taps to reach a dimmer is two taps too many. <strong>Dropped.</strong></p>
+              </div>
+              <div class="wire reveal" style="--d: 160ms">
+                <svg viewBox="0 0 120 90" role="img" aria-label="Wireframe: fixed shell with modes">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="82" rx="6"/>
+                  <rect class="wf-cta" x="8" y="8" width="104" height="10" rx="3"/>
+                  <rect class="wf-box" x="8" y="22" width="14" height="60" rx="3"/>
+                  <rect class="wf-box" x="26" y="22" width="86" height="12" rx="3"/>
+                  <rect class="wf-box" x="26" y="38" width="41" height="44" rx="3"/>
+                  <rect class="wf-box" x="71" y="38" width="41" height="44" rx="3"/>
+                </svg>
+                <div class="wire-label">Study 3: fixed shell + modes</div>
+                <p class="wire-note">Top bar (safety, always), sidebar (mode switch), fixture rail (selection, always), main area (the current mode). Density where you asked for it, panic buttons never move. <strong>Shipped.</strong></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="exploration">
+            <div class="cs-head reveal">
+              <span class="num">10 · Design exploration</span>
+              <h2>Two design languages, on purpose.</h2>
+              <p class="cs-sub">The most unusual visual decision in the product, and a calculated risk: the app deliberately contains two different design worlds.</p>
+            </div>
+            <div class="grid-2">
+              <div class="panel concept chosen reveal">
+                <span class="badge">Shipped</span>
+                <svg viewBox="0 0 120 60" role="img" aria-label="Cyber console style: dark with neon green">
+                  <rect x="0" y="0" width="120" height="60" rx="8" fill="#060608"/>
+                  <rect x="8" y="8" width="40" height="8" rx="4" fill="none" stroke="#00ff88" stroke-width="1"/>
+                  <rect x="52" y="8" width="30" height="8" rx="4" fill="none" stroke="#ff6b00" stroke-width="1"/>
+                  <rect x="86" y="8" width="26" height="8" rx="4" fill="none" stroke="#ff2244" stroke-width="1"/>
+                  <rect x="8" y="24" width="104" height="4" rx="2" fill="#12141c"/>
+                  <rect x="8" y="24" width="66" height="4" rx="2" fill="#00ff88" opacity="0.7"/>
+                  <rect x="8" y="36" width="104" height="4" rx="2" fill="#12141c"/>
+                  <rect x="8" y="36" width="40" height="4" rx="2" fill="#00aaff" opacity="0.7"/>
+                  <rect x="8" y="46" width="30" height="8" rx="4" fill="#00ff88" opacity="0.85"/>
+                </svg>
+                <h4>"Cyber console" (the app's own voice)</h4>
+                <p>Dark background with a grid, pill buttons, uppercase monospace. Neon green <span class="mono">#00ff88</span> as the lead color. Orbitron for headings and navigation, Share Tech Mono for data and sliders. It reads as an instrument, which is what it is.</p>
+                <div class="verdict win">Used everywhere: Control, Live, Music, Cues, Setup.</div>
+              </div>
+              <div class="panel concept chosen reveal" style="--d: 80ms">
+                <span class="badge">Shipped</span>
+                <svg viewBox="0 0 120 60" role="img" aria-label="Daslight style: warm browns and yellow">
+                  <rect x="0" y="0" width="120" height="60" rx="8" fill="#211A12"/>
+                  <rect x="8" y="8" width="24" height="18" rx="3" fill="#3A2E1E" stroke="#584631"/>
+                  <rect x="36" y="8" width="24" height="18" rx="3" fill="#3A2E1E" stroke="#584631"/>
+                  <rect x="64" y="8" width="24" height="18" rx="3" fill="#FFD34D" opacity="0.9"/>
+                  <rect x="92" y="8" width="20" height="18" rx="3" fill="#3A2E1E" stroke="#584631"/>
+                  <rect x="8" y="32" width="104" height="20" rx="3" fill="#2B2216"/>
+                </svg>
+                <h4>"Daslight console" (the Programs tab)</h4>
+                <p>The Programs tab mirrors the professional software Daslight 5: a warm palette of browns and yellow, banks, a scene grid, a fixture map, a curve editor, and a TOUCH mode. Completely different from the green world around it.</p>
+                <div class="verdict win">Used in one place, on purpose: where pros expect their own conventions.</div>
+              </div>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>Why break consistency on purpose?</strong> Because the Programs tab's users
+                already have years of muscle memory in Daslight, and familiarity beats uniformity for
+                them. It is a risk I track honestly: two visual languages in one app is a consistency
+                cost, and it is covered below in Challenges.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="final-ui">
+            <div class="cs-head reveal">
+              <span class="num">11 · Final UI</span>
+              <h2>The console, the remote, the booth.</h2>
+              <p class="cs-sub">A coded impression of the desktop Control mode, in the product's own palette, plus how the same show looks on the other two surfaces.</p>
+            </div>
+            <div class="panel reveal" style="margin-top:2rem; background:#060608; border-color:#23242F; padding:1rem;">
+              <!-- mini console mockup -->
+              <div style="font-family:var(--font-mono); color:#e8ecf4;">
+                <div style="display:flex; gap:6px; align-items:center; margin-bottom:10px; flex-wrap:wrap;">
+                  <span style="font-size:9px; color:#ff2244; border:1px solid rgba(255,34,68,0.5); border-radius:999px; padding:3px 10px;">GM ▮▮▮▮▮▮▮▮ 100%</span>
+                  <span style="font-size:9px; color:#ff6b00; border:1px solid rgba(255,107,0,0.5); border-radius:999px; padding:3px 10px;">ALL</span>
+                  <span style="font-size:9px; color:#00ff88; border:1px solid rgba(0,255,136,0.5); border-radius:999px; padding:3px 10px;">MUSIC</span>
+                  <span style="font-size:9px; color:#ff2244; border:1px solid rgba(255,34,68,0.5); border-radius:999px; padding:3px 10px;">BLACKOUT</span>
+                  <span style="font-size:9px; color:#00aaff; border:1px solid rgba(0,170,255,0.5); border-radius:999px; padding:3px 10px;">FULL</span>
+                  <span style="font-size:9px; color:#8888a8; margin-left:auto;">● CONNECTED</span>
+                </div>
+                <div style="display:flex; gap:6px; margin-bottom:12px; flex-wrap:wrap;">
+                  <span style="font-size:8.5px; color:#00ff88; border:1px solid rgba(0,255,136,0.6); background:rgba(0,255,136,0.07); border-radius:6px; padding:4px 10px;">Stage R · A1</span>
+                  <span style="font-size:8.5px; color:#00ff88; border:1px solid rgba(0,255,136,0.6); background:rgba(0,255,136,0.07); border-radius:6px; padding:4px 10px;">BEAM180 · A34</span>
+                  <span style="font-size:8.5px; color:#8888a8; border:1px solid #252535; border-radius:6px; padding:4px 10px;">SPL 54 · A25</span>
+                  <span style="font-size:8.5px; color:#8888a8; border:1px solid #252535; border-radius:6px; padding:4px 10px;">Laser · A74</span>
+                </div>
+                <div style="display:grid; grid-template-columns:1fr 1.2fr 1fr; gap:10px;">
+                  <div style="border:1px solid #252535; border-radius:10px; padding:10px;">
+                    <div style="font-size:8px; letter-spacing:0.12em; color:#8888a8; margin-bottom:8px;">INTENSITY</div>
+                    <div style="display:flex; gap:12px; align-items:flex-end; height:90px;">
+                      <div style="flex:1; background:linear-gradient(to top, rgba(0,255,136,0.5), rgba(0,255,136,0.05)); height:90%; border-radius:3px;"></div>
+                      <div style="flex:1; background:linear-gradient(to top, rgba(0,170,255,0.5), rgba(0,170,255,0.05)); height:80%; border-radius:3px;"></div>
+                      <div style="flex:1; background:linear-gradient(to top, rgba(255,221,0,0.5), rgba(255,221,0,0.05)); height:40%; border-radius:3px;"></div>
+                    </div>
+                    <div style="display:flex; gap:12px; font-size:7.5px; color:#8888a8; margin-top:4px;"><span style="flex:1; text-align:center;">DIM 90</span><span style="flex:1; text-align:center;">SHT 80</span><span style="flex:1; text-align:center;">SPD 39</span></div>
+                  </div>
+                  <div style="border:1px solid #252535; border-radius:10px; padding:10px;">
+                    <div style="font-size:8px; letter-spacing:0.12em; color:#8888a8; margin-bottom:8px;">PAN / TILT · 540°×180°</div>
+                    <div style="position:relative; height:90px; border:1px solid #252535; border-radius:6px; background:repeating-linear-gradient(to right, transparent 0 19px, #16161f 19px 20px), repeating-linear-gradient(to bottom, transparent 0 19px, #16161f 19px 20px);">
+                      <div style="position:absolute; left:58%; top:38%; width:8px; height:8px; border-radius:50%; background:#00ff88; box-shadow:0 0 10px #00ff88;"></div>
+                    </div>
+                    <div style="display:flex; justify-content:space-between; font-size:7.5px; color:#8888a8; margin-top:4px;"><span>PAN 200°</span><span>TILT 52°</span></div>
+                  </div>
+                  <div style="border:1px solid #252535; border-radius:10px; padding:10px;">
+                    <div style="font-size:8px; letter-spacing:0.12em; color:#8888a8; margin-bottom:8px;">QUICK COLORS</div>
+                    <div style="display:grid; grid-template-columns:repeat(5,1fr); gap:6px;">
+                      <i style="aspect-ratio:1; border-radius:50%; background:#e53935; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#2BB673; display:block; box-shadow:0 0 8px rgba(43,182,115,0.8);"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#1e5df6; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#efefef; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#f6a623; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#00bcd4; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#e91e8c; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#ffd34d; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#b044ff; display:block;"></i>
+                      <i style="aspect-ratio:1; border-radius:50%; background:#20222e; border:1px solid #252535; display:block;"></i>
+                    </div>
+                    <div style="font-size:7.5px; color:#8888a8; margin-top:8px;">RGBW MIX · macros · fade</div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:4px; margin-top:10px; font-size:7.5px; color:#8888a8; letter-spacing:0.08em;">
+                  <span style="border-top:2px solid #ff2244; padding:4px 8px 0;">INTENSITY</span>
+                  <span style="border-top:2px solid #ff6b00; padding:4px 8px 0;">PAN/TILT</span>
+                  <span style="border-top:2px solid #00aaff; padding:4px 8px 0;">COLOR</span>
+                  <span style="border-top:2px solid #00ff88; padding:4px 8px 0;">GOBO</span>
+                  <span style="border-top:2px solid #ffdd00; padding:4px 8px 0;">BEAM</span>
+                  <span style="border-top:2px solid #bb44ff; padding:4px 8px 0;">FX</span>
+                </div>
+              </div>
+            </div>
+            <figure class="figure reveal"><figcaption>Coded impression of the desktop Control mode: fixed safety bar, fixture chips, intensity faders, pan/tilt joystick on a canvas grid, quick colors, and the property rail.</figcaption></figure>
+            <div class="device-note">
+              <div class="panel reveal">
+                <h4><span class="k">DESKTOP</span> The console</h4>
+                <p>All seven modes, keyboard shortcuts, the full Daslight-style Programs console, and the 4-deck DJ Music view with waveforms, hot cues, and an AI director.</p>
+              </div>
+              <div class="panel reveal" style="--d: 80ms">
+                <h4><span class="k">PHONE</span> The remote</h4>
+                <p>Bottom tabs, 28-44px touch targets, simple Music presets (AMBIENT / PARTY / RAVE). Built for walking the room during setup and quick fixes mid-show.</p>
+              </div>
+              <div class="panel reveal" style="--d: 160ms">
+                <h4><span class="k">TABLET</span> The booth companion</h4>
+                <p>A fixed 3-column layout with no tabs: everything visible at once, at arm's reach next to the mixer. BPM and mic input for beat sync.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="design-system">
+            <div class="cs-head reveal">
+              <span class="num">12 · Design system</span>
+              <h2>Tokens tuned for a dark room.</h2>
+            </div>
+            <div class="spec-grid">
+              <div class="panel spec-panel reveal">
+                <h4>Color · from shared.css</h4>
+                <div class="swatches">
+                  <div class="swatch"><i style="background:#00ff88"></i><b>--green</b>lead accent</div>
+                  <div class="swatch"><i style="background:#ff6b00"></i><b>--orange</b>attention</div>
+                  <div class="swatch"><i style="background:#ff2244"></i><b>--red</b>danger / blackout</div>
+                  <div class="swatch"><i style="background:#00aaff"></i><b>--blue</b>info / position</div>
+                  <div class="swatch"><i style="background:#ffdd00"></i><b>--yellow</b>beam / warm</div>
+                  <div class="swatch"><i style="background:#bb44ff"></i><b>--purple</b>FX / RGBW fixtures</div>
+                  <div class="swatch"><i style="background:#060608"></i><b>--bg</b>near-black base</div>
+                  <div class="swatch"><i style="background:#252535"></i><b>--border</b>hairlines</div>
+                </div>
+                <p class="wire-note" style="margin-top: 1rem">Fixtures are color-coded by type: moving heads green, RGBW purple, laser pink, fog grey. In a dark booth, color is faster than reading.</p>
+              </div>
+              <div class="panel spec-panel reveal" style="--d: 60ms">
+                <h4>Type, density &amp; personalization</h4>
+                <div class="token-list">
+                  <b>Orbitron</b> <i>headings &amp; navigation, the instrument voice</i><br />
+                  <b>Share Tech Mono</b> <i>data, values, sliders</i><br />
+                  <b>UI density</b> <i>Default / Compact / Touch, user-selectable</i><br />
+                  <b>Accent picker</b> <i>8 hues, because it's the operator's console</i><br />
+                  <b>Dark default</b> <i>light mode exists, nobody at a gig uses it</i>
+                </div>
+                <p class="wire-note" style="margin-top:1rem">Density as a user setting matters here more than in most products: the same person programs at a desk (compact) and performs on a touch screen (touch) in the same night.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="prototype">
+            <div class="cs-head reveal">
+              <span class="num">13 · Real-time &amp; touch</span>
+              <h2>Tested with real lights, in a real dark room.</h2>
+            </div>
+            <div class="prose reveal">
+              <p>
+                You cannot prototype a lighting console with static screens: the product <em>is</em>
+                the feedback loop between a finger on glass and a beam moving in the room. So the
+                prototype was always the real system, connected to real fixtures over a real
+                USB-DMX interface, iterated gig after gig.
+              </p>
+              <p>
+                <strong>What only live testing revealed:</strong> the pan/tilt joystick needed a
+                canvas with fine grid snapping, because finger precision in the dark is worse than
+                anyone plans for. Sliders needed optimistic UI over the WebSocket, because even 100ms
+                of wait between finger and light feels broken. And the tap-tempo button had to be
+                huge, because you hit it with the side of your hand while doing something else.
+              </p>
+              <p>
+                Every control change is broadcast over WebSocket to all connected surfaces, so the
+                phone remote, the tablet, and the desktop always show the same live state. Undo/redo
+                works across all of them, which turned out to be the feature that makes people trust
+                handing the phone remote to someone else.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="challenges">
+            <div class="cs-head reveal">
+              <span class="num">14 · Challenges</span>
+              <h2>The hard decisions, including the honest ones.</h2>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.1</span>Latency vs. truth: what does a slider show?</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: server-confirmed state</h5>The slider shows the value the server confirmed. Always true, never fast. At 100-200ms round trip, dragging a dimmer felt like stirring honey. Unacceptable live.</div>
+                <div class="shipped"><h5>Shipped: optimistic UI with reconciliation</h5>The slider follows the finger instantly, the value streams over WebSocket, and the server state reconciles quietly. If the connection drops, a clear status pill flips to red and controls lock, so "fast" never becomes "lying".</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.2</span>One design language or two?</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: one unified language everywhere</h5>Cleaner, prouder, more "designed". But it would force Daslight users to relearn a workflow they already own, in the one tab where their muscle memory is the whole value.</div>
+                <div class="shipped"><h5>Shipped: two languages, one boundary</h5>The cyber-console language owns the app; the Daslight language owns exactly one tab. The boundary is the tab edge, never inside a screen. I keep an honest eye on the cost: a legacy Programs page still exists that the mobile app links to, and unifying those two is on the roadmap.</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.3</span>How much product fits in the Music tab?</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: full DJ parity on every surface</h5>The desktop Music mode is a 4-deck Serato-style view: waveforms, hot cues, crossfader, AI director. Shrinking that to a phone would produce an unusable postage stamp of a DJ booth.</div>
+                <div class="shipped"><h5>Shipped: same intent, different depth per surface</h5>Desktop gets the full DJ view. The phone gets three presets (AMBIENT / PARTY / RAVE) and a beat button. The tablet gets BPM + mic sync. It is a product-inside-a-product, and each surface gets the version its context can actually use.</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.4</span>Hardware is part of the UX</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: browser-only, WebUSB</h5>No install, beautiful story. But WebUSB support for DMX interfaces is patchy, and a gig cannot depend on a browser flag.</div>
+                <div class="shipped"><h5>Shipped: a free Electron desktop app as the hardware bridge</h5>The desktop app owns the USB-DMX connection and runs the local server; every other surface connects to it. Register, download, sign in with the same account, plug in. One extra install, zero flakiness at showtime.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="results">
+            <div class="cs-head reveal">
+              <span class="num">15 · Results</span>
+              <h2>A real console, running real shows.</h2>
+              <p class="cs-sub">Live and free during beta, with the full stack working: browser console, desktop hardware bridge, and phone and tablet remotes.</p>
+            </div>
+            <div class="prose reveal">
+              <h3>What shipped</h3>
+              <ul>
+                <li>The full desktop console: Control, Programs (Daslight-style), Live, Music, Cues, Setup, Settings</li>
+                <li>Phone remote and tablet layout, live over the same WebSocket protocol</li>
+                <li>Electron desktop app bridging real USB-DMX hardware</li>
+                <li>Fixture patching with per-fixture safety limits, groups, and a DMX monitor</li>
+                <li>2D/3D rig visualizer (Three.js)</li>
+                <li>The 4-deck DJ Music mode with beat sync and an AI director</li>
+                <li>Cue stacks with GO/BACK, chase builder, tap tempo, scene banks</li>
+                <li>Personalization: 8 accent hues, density modes, dark/light, fixture color coding</li>
+                <li>Marketing site, auth, and account system shared across all surfaces</li>
+              </ul>
+              <h3>Lessons learned</h3>
+              <ul>
+                <li><strong>Live products are designed at the worst moment.</strong> Every layout decision starts from "dark room, sweaty hands, right now". If it works there, it works everywhere.</li>
+                <li><strong>Consistency is a tool, not a religion.</strong> Borrowing Daslight's language in one tab bought more usability than uniform branding would have. But two languages need a hard boundary, and honesty about the cost.</li>
+                <li><strong>Real-time UX is a data problem wearing a design costume.</strong> Optimistic state, reconciliation, and connection truth-telling shaped the feel of the product more than any visual choice.</li>
+              </ul>
+              <h3>What's next</h3>
+              <ul>
+                <li>Unify the two Programs systems (the console tab and the legacy page)</li>
+                <li>Systematic i18n instead of mixed Hebrew/English strings</li>
+                <li>Show templates: save a whole gig and reuse it next weekend</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <section class="case-next">
+      <p class="eyebrow reveal">Next case study</p>
+      <a class="reveal" href="relay.html" style="--d: 80ms">Relay
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year>2026</span> Igal Talmerom</span>
+      <span class="colophon">Product designed, built and shipped by me.</span>
+      <a href="../index.html#work">← All work</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

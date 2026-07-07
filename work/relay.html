@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-blueprint="off">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relay | Case Study | Igal Talmerom</title>
+  <meta name="description" content="Case study: Relay, a mobile-first AI engineering command center. Fix bugs, review code, run agents, and use a live terminal from your phone." />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232B3FE4'/><text x='50' y='68' font-size='52' font-family='monospace' fill='white' text-anchor='middle'>IT</text></svg>" />
+  <style>
+    /* Relay brand accent for in-case mockups */
+    .relay-accent { --p-accent: #10B981; }
+  </style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#overview">Skip to case study</a>
+
+  <header class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html"><span class="mark">IT</span> Igal Talmerom</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../index.html#work" aria-current="page">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn bp-btn" data-blueprint-toggle aria-pressed="false" title="Blueprint mode" aria-label="Toggle blueprint mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </button>
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ============ CASE HERO ============ -->
+    <section class="case-hero container">
+      <p class="eyebrow reveal">Featured case study · Shipped product · 2025</p>
+      <h1 class="reveal" style="--d: 80ms">Relay: fix bugs <em>from your phone.</em></h1>
+      <p class="lede reveal" style="--d: 160ms">
+        Relay is a mobile-first AI engineering command center. It connects a GitHub repo to an
+        AI agent with real codebase access, a file browser, a cloud terminal, and one-tap
+        skills, in a single phone-native experience. I designed it and built it, end to end.
+      </p>
+      <dl class="case-meta reveal" style="--d: 240ms">
+        <div><dt>Role</dt><dd>Solo: product design + frontend + backend</dd></div>
+        <div><dt>Status</dt><dd>Live in production, on Vercel</dd></div>
+        <div><dt>Platform</dt><dd>Mobile-first web app · full desktop layout</dd></div>
+        <div><dt>Stack</dt><dd>Next.js 14 · TypeScript · Tailwind · xterm.js</dd></div>
+      </dl>
+    </section>
+
+    <div class="container">
+      <div class="case-layout">
+        <!-- ============ TOC ============ -->
+        <nav class="toc" aria-label="Case study contents">
+          <ol>
+            <li><a href="#overview"><span class="n">01</span>Overview</a></li>
+            <li><a href="#problem"><span class="n">02</span>Problem</a></li>
+            <li><a href="#goals"><span class="n">03</span>Goals</a></li>
+            <li><a href="#research"><span class="n">04</span>Research</a></li>
+            <li><a href="#personas"><span class="n">05</span>Personas</a></li>
+            <li><a href="#journey"><span class="n">06</span>User journey</a></li>
+            <li><a href="#ia"><span class="n">07</span>Information architecture</a></li>
+            <li><a href="#flow"><span class="n">08</span>User flow</a></li>
+            <li><a href="#wireframes"><span class="n">09</span>Wireframes</a></li>
+            <li><a href="#exploration"><span class="n">10</span>Exploration</a></li>
+            <li><a href="#final-ui"><span class="n">11</span>Final UI</a></li>
+            <li><a href="#design-system"><span class="n">12</span>Design system</a></li>
+            <li><a href="#prototype"><span class="n">13</span>Prototype</a></li>
+            <li><a href="#challenges"><span class="n">14</span>Challenges</a></li>
+            <li><a href="#results"><span class="n">15</span>Results</a></li>
+          </ol>
+        </nav>
+
+        <div>
+          <!-- ============ 01 OVERVIEW ============ -->
+          <section class="cs" id="overview">
+            <div class="cs-head reveal">
+              <span class="num">01 · Overview</span>
+              <h2>Serious engineering work, on a 390px screen.</h2>
+            </div>
+            <div class="prose reveal">
+              <p>
+                Relay connects to a GitHub repository and gives you everything you need to work on
+                it from a phone: an AI agent that can actually read and change the codebase, a full
+                file browser with syntax highlighting, a live cloud terminal, an app preview, and
+                one-tap "skills" (preset agent workflows like Explore, Review, Debug).
+              </p>
+              <p>
+                <strong>Who it's for:</strong> developers who are away from their machine but not
+                away from their work. Commuting, on a call, between meetings, or just on the couch.
+              </p>
+              <p>
+                <strong>The bet:</strong> serious engineering work can happen on mobile, if you
+                design for thumbs, context, and interruption, instead of shrinking a desktop tool.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ 02 PROBLEM ============ -->
+          <section class="cs" id="problem">
+            <div class="cs-head reveal">
+              <span class="num">02 · Problem</span>
+              <h2>Developer tools assume you're at a desk.</h2>
+            </div>
+            <div class="prose reveal">
+              <h3>User pain</h3>
+              <p>
+                When you're away from your machine, you can't easily inspect code, run an agent, or
+                unblock a teammate. A bug report arrives, a question comes up in review, an idea hits
+                you on the train, and the only real answer is "when I'm back at my laptop". The work
+                doesn't wait, but the tools do.
+              </p>
+              <h3>Why this got urgent now</h3>
+              <p>
+                AI agents changed the shape of the work. A lot of engineering is now directing and
+                checking an agent, not typing every line. That kind of work fits a phone much better
+                than writing code does. But no tool offered it in a phone-native way.
+              </p>
+              <h3>Existing options, and why they are not enough</h3>
+            </div>
+            <div class="table-wrap reveal">
+              <table class="data">
+                <thead>
+                  <tr><th>Existing approach</th><th>Repo access</th><th>AI agent</th><th>Terminal</th><th>Phone-native</th><th>Where it breaks</th></tr>
+                </thead>
+                <tbody>
+                  <tr><td>GitHub Mobile</td><td class="partial">Read + review</td><td class="no">None</td><td class="no">None</td><td class="yes">Yes</td><td>You can look, but you can't act. No agent, no shell, no fixes.</td></tr>
+                  <tr><td>ChatGPT / Claude apps</td><td class="no">None</td><td class="partial">Chat only</td><td class="no">None</td><td class="yes">Yes</td><td>The AI can't see your code. You paste snippets and lose context.</td></tr>
+                  <tr><td>SSH clients (Termius etc.)</td><td class="yes">Full</td><td class="no">None</td><td class="yes">Yes</td><td class="partial">Terminal only</td><td>A raw shell on a phone keyboard. Powerful and painful.</td></tr>
+                  <tr><td>Cloud IDEs on mobile</td><td class="yes">Full</td><td class="partial">Some</td><td class="yes">Yes</td><td class="no">No</td><td>A desktop layout squeezed into a phone. Unusable with one hand.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <figure class="figure reveal"><figcaption>Competitive teardown at the start of the project. Nobody combined repo access, a real agent, and a terminal in a phone-native shell.</figcaption></figure>
+          </section>
+
+          <!-- ============ 03 GOALS ============ -->
+          <section class="cs" id="goals">
+            <div class="cs-head reveal">
+              <span class="num">03 · Goals</span>
+              <h2>Mobile-first, without dumbing it down.</h2>
+              <p class="cs-sub">The product vision in one line: <em>"Fix bugs from your phone."</em> These are the design principles I set at the start, and how each one shows up in the shipped product.</p>
+            </div>
+            <div class="table-wrap reveal">
+              <table class="data">
+                <thead><tr><th>Principle</th><th>How it shows up in the product</th></tr></thead>
+                <tbody>
+                  <tr><td>Mobile-first, desktop-capable</td><td>Bottom nav, safe-area padding, touch targets, bottom sheets. A full sidebar layout on desktop, from the same components.</td></tr>
+                  <tr><td>Context stays visible</td><td>Active project, connected repo, and branch are always shown, in chat and in file views. You never wonder "what am I working on?"</td></tr>
+                  <tr><td>Progressive disclosure</td><td>Hub shows quick actions; chat reveals skills; the file view reveals line selection and Ask AI. Depth on demand, not up front.</td></tr>
+                  <tr><td>Don't interrupt flow</td><td>The chat stays mounted when you switch to Terminal or Preview, so a streaming agent answer is never cut off.</td></tr>
+                  <tr><td>Trust and clarity</td><td>Empty states say what to do next. Errors have retry actions. Destructive actions require confirmation.</td></tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>Non-goals:</strong> Relay is not a code editor on a phone (typing large amounts
+                of code on glass is a losing game), and not a Git client. It is a command center:
+                you read, direct, check, and decide.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ 04 RESEARCH ============ -->
+          <section class="cs" id="research">
+            <div class="cs-head reveal">
+              <span class="num">04 · Research</span>
+              <h2>Living the problem, then studying it.</h2>
+              <p class="cs-sub">This started from my own pain as a developer who is often away from the desk. I backed it up with teardowns of GitHub Mobile, the ChatGPT and Claude apps, Termius, and Replit's mobile app, and with conversations with developer friends about when and how they use their phones for work.</p>
+            </div>
+            <div class="insights">
+              <div class="insight reveal">
+                <div><h4>Phone sessions are short and interrupted</h4>
+                <p>Nobody sits down for an hour of phone work. Sessions are a few minutes, and they get cut by notifications, stops, and real life. The design must survive interruption: nothing important can be lost when you switch apps or tabs.</p></div>
+              </div>
+              <div class="insight reveal" style="--d: 60ms">
+                <div><h4>Context is the first thing you lose on mobile</h4>
+                <p>On a desktop you have windows and tabs to remind you where you are. On a phone you have one small screen. If the repo, branch, and project are not always visible, users act on the wrong thing or stop acting at all.</p></div>
+              </div>
+              <div class="insight reveal" style="--d: 120ms">
+                <div><h4>Typing is the enemy, choosing is fine</h4>
+                <p>Long prompts on a phone keyboard kill the flow. But tapping a preset, picking a suggestion chip, or selecting lines of code is easy. Everything important in Relay can start with a tap, not a paragraph.</p></div>
+              </div>
+              <div class="insight reveal" style="--d: 180ms">
+                <div><h4>Reading code on a phone is fine, if you design for it</h4>
+                <p>Syntax highlighting, line numbers, horizontal code scroll inside a fixed frame, and tap-to-select lines make code readable at 390px. What breaks is desktop chrome around the code, not the code itself.</p></div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 05 PERSONAS ============ -->
+          <section class="cs" id="personas">
+            <div class="cs-head reveal">
+              <span class="num">05 · User personas</span>
+              <h2>The two situations I designed for.</h2>
+              <p class="cs-sub">Less "invented people", more real situations that repeat. Every screen was checked against both.</p>
+            </div>
+            <div class="grid-2">
+              <article class="persona reveal">
+                <div class="persona-head">
+                  <div class="persona-avatar" aria-hidden="true">B</div>
+                  <div><h4>The builder on the move</h4><div class="role">A developer between places, with an idea or a bug in mind</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"I know exactly what's wrong. I just can't touch the code right now."</div>
+                  <div><h5>Situation</h5><ul>
+                    <li>Commuting, waiting, or away for the evening</li>
+                    <li>Has full context in their head, zero tools in their hand</li>
+                  </ul></div>
+                  <div><h5>Needs</h5><ul>
+                    <li>Start an agent on the problem now, not in two hours</li>
+                    <li>Check the agent's work: read the diff, run it, see the preview</li>
+                    <li>One-handed use, short taps, no long typing</li>
+                  </ul></div>
+                  <div><h5>What Relay gives them</h5><ul>
+                    <li>Hub → New Agent → quick agent presets (Debug, Review, Explore)</li>
+                    <li>Chat with real codebase access + live terminal + preview</li>
+                  </ul></div>
+                </div>
+              </article>
+              <article class="persona reveal" style="--d: 100ms">
+                <div class="persona-head">
+                  <div class="persona-avatar alt" aria-hidden="true">U</div>
+                  <div><h4>The unblocked teammate</h4><div class="role">Someone whose team is waiting on an answer from them</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"They just need me to look at one file and say yes. And I'm in line at the supermarket."</div>
+                  <div><h5>Situation</h5><ul>
+                    <li>A teammate is blocked on their review or their knowledge</li>
+                    <li>The answer needs looking at real code, not memory</li>
+                  </ul></div>
+                  <div><h5>Needs</h5><ul>
+                    <li>Open the exact file fast: search, breadcrumbs, highlighting</li>
+                    <li>Ask the AI about the code they are looking at, in place</li>
+                    <li>Answer in minutes and get back to their life</li>
+                  </ul></div>
+                  <div><h5>What Relay gives them</h5><ul>
+                    <li>Code tab: repo search + file browser + line selection</li>
+                    <li>Tap lines → Ask AI, with file path and line numbers pre-filled</li>
+                  </ul></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <!-- ============ 06 JOURNEY ============ -->
+          <section class="cs" id="journey">
+            <div class="cs-head reveal">
+              <span class="num">06 · User journey</span>
+              <h2>A bug report arrives at 8:40, on the train.</h2>
+              <p class="cs-sub">The same event, without Relay and with it. The journey that drove the whole design.</p>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="journey" role="table" aria-label="User journey map">
+                <div class="jh">Stage</div>
+                <div class="stage">Alert</div><div class="stage">Understand</div><div class="stage">Act</div><div class="stage">Verify</div><div class="stage">Close</div>
+                <div class="jh">Without Relay</div>
+                <div>A crash report lands in Slack. You read it on your phone. That's all you can do.</div>
+                <div>You try to remember the code. GitHub mobile shows the file, tiny and read-only.</div>
+                <div>Nothing. You write "will look when I'm at my laptop" and feel behind all day.</div>
+                <div>Hours later you finally reproduce it at your desk. The context from the morning is gone.</div>
+                <div>The fix ships in the evening. Total time: a full day for a 20-minute bug.</div>
+                <div class="jh">With Relay</div>
+                <div>Same report. You open Relay. Your project and branch are already there.</div>
+                <div>You open the file in the Code tab, tap the suspicious lines, and hit Ask AI.</div>
+                <div>The agent explains the bug and proposes a fix. You watch it work, streaming, with tool calls visible.</div>
+                <div>You run the tests in the cloud terminal and open the live preview. It works.</div>
+                <div>Fix done before your stop. Total time: the length of a train ride.</div>
+                <div class="jh">Design takeaway</div>
+                <div class="opp">Open onto context, not onto a menu.</div>
+                <div class="opp">Code must be readable and selectable, not just viewable.</div>
+                <div class="opp">Acting = directing an agent. Make that one tap.</div>
+                <div class="opp">Terminal and preview must live next to the chat.</div>
+                <div class="opp">Session continuity: everything is saved, nothing is lost.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 07 IA ============ -->
+          <section class="cs" id="ia">
+            <div class="cs-head reveal">
+              <span class="num">07 · Information architecture</span>
+              <h2>A hub, five tabs, and one workspace.</h2>
+              <p class="cs-sub">The Hub answers "what can I do right now?". The Agent workspace is where work happens. Everything else supports those two.</p>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="ia-tree" role="img" aria-label="Information architecture: Hub home, Agent workspace with chat terminal and preview, Code browser, and Skills, Projects, Profile, Settings">
+                <div class="ia-col">
+                  <div class="ia-col-title">Home</div>
+                  <div class="ia-node root"><b>Hub</b><span>command center, answers "what now?"</span></div>
+                  <div class="ia-node hot"><b>New Agent</b><span>primary CTA</span></div>
+                  <div class="ia-node"><b>Quick agents</b><span>Explore · Review · Debug · UI Review</span></div>
+                  <div class="ia-node"><b>Active project card</b><span>repo status + project switcher</span></div>
+                  <div class="ia-node"><b>Recent sessions</b><span>continue where you left off</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Work</div>
+                  <div class="ia-node root"><b>Agent</b><span>the workspace shell</span></div>
+                  <div class="ia-node hot"><b>Chat</b><span>context bar · streaming · tool calls · skills</span></div>
+                  <div class="ia-node"><b>Terminal</b><span>xterm.js shell in the sandbox</span></div>
+                  <div class="ia-node"><b>Preview</b><span>live app URL from the sandbox</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Read</div>
+                  <div class="ia-node root"><b>Code</b><span>full-screen file browser</span></div>
+                  <div class="ia-node"><b>Search + breadcrumbs</b><span>find any file fast</span></div>
+                  <div class="ia-node hot"><b>Tap-to-select lines</b><span>→ copy or Ask AI with context</span></div>
+                  <div class="ia-node"><b>Ask AI sheet</b><span>suggested questions per file</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Manage</div>
+                  <div class="ia-node root"><b>Skills · Projects · Profile · Settings</b><span>everything else</span></div>
+                  <div class="ia-node"><b>Skills</b><span>one-tap workflows, custom skills</span></div>
+                  <div class="ia-node"><b>Projects</b><span>repos, PAT connect flow, rename, delete</span></div>
+                  <div class="ia-node"><b>Profile</b><span>stats, 30-day heatmap, agent memory</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>Mobile nav (5 tabs):</strong> Hub · Agent · Code · Skills · Settings.
+                <strong> Desktop:</strong> a persistent sidebar with the same destinations and a wider
+                split-pane code view. Authenticated users skip the landing page and go straight to
+                the Hub.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ 08 USER FLOW ============ -->
+          <section class="cs" id="flow">
+            <div class="cs-head reveal">
+              <span class="num">08 · User flow</span>
+              <h2>From "something's broken" to a verified fix.</h2>
+              <p class="cs-sub">The core flow. The two loops in the middle (steer the agent, check the code) are where users actually spend their time.</p>
+            </div>
+            <div class="panel reveal scroll-x">
+              <svg class="flow-svg" viewBox="0 0 920 330" role="img" aria-label="User flow: open Hub, start a quick agent, watch the streaming answer, then either steer more, inspect files, or verify in terminal and preview, and finish">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0 0 L10 5 L0 10 z" class="arrowhead"/>
+                  </marker>
+                </defs>
+                <rect class="node-accent" x="10" y="130" width="120" height="56" rx="12"/>
+                <text x="70" y="154" text-anchor="middle">Open Hub</text>
+                <text x="70" y="170" text-anchor="middle" class="t-dim">project + repo visible</text>
+
+                <rect class="node" x="170" y="130" width="140" height="56" rx="12"/>
+                <text x="240" y="154" text-anchor="middle">Quick agent</text>
+                <text x="240" y="170" text-anchor="middle" class="t-dim">Debug · Review · Explore</text>
+
+                <rect class="node" x="350" y="130" width="150" height="56" rx="12"/>
+                <text x="425" y="154" text-anchor="middle">Agent works</text>
+                <text x="425" y="170" text-anchor="middle" class="t-dim">streaming + tool calls</text>
+
+                <polygon class="decision" points="610,110 690,158 610,206 530,158"/>
+                <text x="610" y="154" text-anchor="middle">Looks</text>
+                <text x="610" y="168" text-anchor="middle">right?</text>
+
+                <rect class="node" x="540" y="20" width="150" height="52" rx="12"/>
+                <text x="615" y="42" text-anchor="middle">Steer / ask more</text>
+                <text x="615" y="57" text-anchor="middle" class="t-dim">chips · skills · selection</text>
+
+                <rect class="node" x="540" y="262" width="150" height="52" rx="12"/>
+                <text x="615" y="284" text-anchor="middle">Inspect the code</text>
+                <text x="615" y="299" text-anchor="middle" class="t-dim">Code tab · Ask AI on lines</text>
+
+                <rect class="node" x="730" y="130" width="120" height="56" rx="12"/>
+                <text x="790" y="150" text-anchor="middle">Verify</text>
+                <text x="790" y="165" text-anchor="middle" class="t-dim">terminal · preview</text>
+                <text x="790" y="178" text-anchor="middle" class="t-dim">chat stays mounted</text>
+
+                <rect class="terminal" x="740" y="262" width="140" height="52" rx="26"/>
+                <text x="810" y="284" text-anchor="middle" class="t-light">Done</text>
+                <text x="810" y="299" text-anchor="middle" class="t-dim">session saved to history</text>
+
+                <path class="edge" d="M130 158 H166"/>
+                <path class="edge" d="M310 158 H346"/>
+                <path class="edge" d="M500 158 H526"/>
+                <path class="edge" d="M610 110 V76"/>
+                <text x="592" y="96" class="t-dim" text-anchor="end">not yet</text>
+                <path class="edge" d="M540 46 h-160 v80"/>
+                <path class="edge" d="M610 206 V258"/>
+                <text x="592" y="236" class="t-dim" text-anchor="end">need to see it</text>
+                <path class="edge" d="M540 288 h-260 v-98"/>
+                <path class="edge edge-accent" d="M690 158 H726"/>
+                <text x="708" y="148" class="t-dim" text-anchor="middle">yes</text>
+                <path class="edge edge-accent" d="M790 186 V258"/>
+              </svg>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p><strong>Decisions I would defend:</strong></p>
+              <ul>
+                <li><strong>Presets before prompts.</strong> Hub quick agents map straight to agent prompts, so the flow starts with a tap. Writing a prompt is always possible, never required.</li>
+                <li><strong>Verify without leaving.</strong> Terminal and Preview are tabs of the same workspace, and the chat stays mounted behind them. Checking the fix never costs you the conversation.</li>
+                <li><strong>Sessions are permanent.</strong> After the first message the URL becomes <span class="mono">/chat/{sessionId}</span>. Interruption is expected; loss is not allowed.</li>
+              </ul>
+            </div>
+          </section>
+
+          <!-- ============ 09 WIREFRAMES ============ -->
+          <section class="cs" id="wireframes">
+            <div class="cs-head reveal">
+              <span class="num">09 · Wireframes</span>
+              <h2>How the shell found its shape.</h2>
+              <p class="cs-sub">The main structural question: what is "home", and where do terminal and preview live? Three structures, tested as rough builds.</p>
+            </div>
+            <div class="grid-3">
+              <div class="wire reveal">
+                <svg viewBox="0 0 120 240" role="img" aria-label="Wireframe: chat as the home screen">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="232" rx="14"/>
+                  <line class="wf-line" x1="16" y1="26" x2="70" y2="26"/>
+                  <rect class="wf-box" x="16" y="40" width="66" height="24" rx="8"/>
+                  <rect class="wf-box" x="38" y="72" width="66" height="24" rx="8"/>
+                  <rect class="wf-box" x="16" y="104" width="72" height="24" rx="8"/>
+                  <rect class="wf-box" x="16" y="180" width="88" height="20" rx="10"/>
+                  <rect class="wf-cta" x="16" y="208" width="88" height="16" rx="8"/>
+                </svg>
+                <div class="wire-label">Study 1: chat is home</div>
+                <p class="wire-note">Open the app, land in a chat. Fast for one thing, blind for everything else: no way to see projects, files, or what you can do. <strong>Dropped:</strong> a chat box is not a command center.</p>
+              </div>
+              <div class="wire reveal" style="--d: 80ms">
+                <svg viewBox="0 0 120 240" role="img" aria-label="Wireframe: hub dashboard with quick actions">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="232" rx="14"/>
+                  <line class="wf-line" x1="16" y1="24" x2="60" y2="24"/>
+                  <rect class="wf-cta" x="16" y="36" width="88" height="22" rx="11"/>
+                  <rect class="wf-box" x="16" y="66" width="88" height="28" rx="6"/>
+                  <rect class="wf-box" x="16" y="102" width="41" height="30" rx="6"/>
+                  <rect class="wf-box" x="63" y="102" width="41" height="30" rx="6"/>
+                  <rect class="wf-box" x="16" y="138" width="41" height="30" rx="6"/>
+                  <rect class="wf-box" x="63" y="138" width="41" height="30" rx="6"/>
+                  <rect class="wf-box" x="16" y="180" width="88" height="18" rx="6"/>
+                  <rect class="wf-box" x="16" y="204" width="88" height="18" rx="6"/>
+                </svg>
+                <div class="wire-label">Study 2: hub with quick agents</div>
+                <p class="wire-note">A dashboard: New Agent on top, active project card, a grid of preset workflows, recent sessions. Answers "what can I do right now?" at a glance. <strong>Kept.</strong></p>
+              </div>
+              <div class="wire reveal" style="--d: 160ms">
+                <svg viewBox="0 0 120 240" role="img" aria-label="Wireframe: tabbed workspace with chat, terminal and preview">
+                  <rect class="wf-frame" x="4" y="4" width="112" height="232" rx="14"/>
+                  <rect class="wf-box" x="16" y="20" width="88" height="14" rx="7"/>
+                  <rect class="wf-cta" x="18" y="22" width="28" height="10" rx="5"/>
+                  <rect class="wf-box" x="16" y="42" width="88" height="12" rx="4"/>
+                  <rect class="wf-box" x="16" y="62" width="66" height="22" rx="8"/>
+                  <rect class="wf-box" x="38" y="92" width="66" height="22" rx="8"/>
+                  <rect class="wf-box" x="16" y="122" width="88" height="40" rx="6"/>
+                  <rect class="wf-solid" x="22" y="130" width="60" height="4" rx="2"/>
+                  <rect class="wf-solid" x="22" y="140" width="72" height="4" rx="2"/>
+                  <rect class="wf-solid" x="22" y="150" width="48" height="4" rx="2"/>
+                  <rect class="wf-cta" x="16" y="208" width="88" height="16" rx="8"/>
+                </svg>
+                <div class="wire-label">Study 3: workspace shell with tabs</div>
+                <p class="wire-note">Chat, Terminal, and Preview as tabs of one shell, with the repo context bar on top. The key detail: switching tabs hides the chat but does not unmount it. <strong>Shipped.</strong></p>
+              </div>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>What settled it.</strong> Study 1 failed the "cold open" test: a new user sees a
+                text box and doesn't know what the product can do. Study 2 fixed discoverability, and
+                Study 3 solved the deeper problem: verification (terminal, preview) and conversation
+                (chat) are one workflow, so they must be one screen with tabs, not separate pages.
+              </p>
+            </div>
+          </section>
+
+          <!-- ============ 10 EXPLORATION ============ -->
+          <section class="cs" id="exploration">
+            <div class="cs-head reveal">
+              <span class="num">10 · Design exploration</span>
+              <h2>Three looks for a tool you use in the dark.</h2>
+              <p class="cs-sub">A developer tool used on a phone, often at night, often outside. The visual language had to feel technical but stay calm.</p>
+            </div>
+            <div class="grid-3">
+              <div class="panel concept reveal">
+                <svg viewBox="0 0 120 80" role="img" aria-label="Concept A: light and friendly">
+                  <rect x="0" y="0" width="120" height="80" rx="8" fill="#F7F8FA"/>
+                  <rect x="10" y="10" width="100" height="20" rx="6" fill="#fff" stroke="#E5E7EB"/>
+                  <rect x="10" y="36" width="48" height="16" rx="8" fill="#E5E7EB"/>
+                  <rect x="10" y="60" width="70" height="10" rx="5" fill="#3B82F6"/>
+                </svg>
+                <h4>A: "Friendly SaaS"</h4>
+                <p>Light, blue, rounded, approachable. Nice for a landing page, wrong for the job: code and terminals look foreign on it, and it glows in your face at night.</p>
+                <div class="verdict">Rejected. The product lives next to code; the surface should too.</div>
+              </div>
+              <div class="panel concept reveal" style="--d: 80ms">
+                <svg viewBox="0 0 120 80" role="img" aria-label="Concept B: pure terminal black">
+                  <rect x="0" y="0" width="120" height="80" rx="8" fill="#000"/>
+                  <rect x="10" y="10" width="70" height="5" rx="2.5" fill="#22c55e"/>
+                  <rect x="10" y="22" width="90" height="4" rx="2" fill="#333"/>
+                  <rect x="10" y="31" width="80" height="4" rx="2" fill="#333"/>
+                  <rect x="10" y="62" width="46" height="9" rx="4" fill="#22c55e"/>
+                </svg>
+                <h4>B: "Pure terminal"</h4>
+                <p>Full hacker black, mono everywhere. Honest about the domain, but tiring to read, and chat bubbles and cards fight the aesthetic.</p>
+                <div class="verdict">Rejected. Too harsh as the whole world; right as one tab (the terminal itself).</div>
+              </div>
+              <div class="panel concept chosen reveal" style="--d: 160ms">
+                <span class="badge">Shipped</span>
+                <svg viewBox="0 0 120 80" role="img" aria-label="Concept C: dark-first with emerald accent">
+                  <rect x="0" y="0" width="120" height="80" rx="8" fill="#0B0F14"/>
+                  <rect x="10" y="10" width="100" height="22" rx="8" fill="#111827" stroke="#1F2937"/>
+                  <rect x="16" y="16" width="42" height="5" rx="2.5" fill="#E5E7EB"/>
+                  <rect x="16" y="25" width="28" height="4" rx="2" fill="#10B981"/>
+                  <rect x="10" y="40" width="48" height="14" rx="7" fill="#1F2937"/>
+                  <rect x="62" y="40" width="48" height="14" rx="7" fill="#1F2937"/>
+                  <rect x="10" y="62" width="60" height="10" rx="5" fill="#10B981"/>
+                </svg>
+                <h4>C: "Dark-first, emerald"</h4>
+                <p>A deep dark base with soft cards, an emerald-to-cyan accent for brand moments, and monospace reserved for code and paths. Light mode exists as a token swap.</p>
+                <div class="verdict win">Selected. Calm at night, technical without being hostile, and code blocks feel native in it.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 11 FINAL UI ============ -->
+          <section class="cs" id="final-ui">
+            <div class="cs-head reveal">
+              <span class="num">11 · Final UI</span>
+              <h2>Hub, Agent, Code: the three screens that carry the product.</h2>
+              <p class="cs-sub">Rebuilt here as live coded mockups in Relay's own palette. They adapt to this site's theme toggle and to screen size.</p>
+            </div>
+            <div class="ui-stage reveal" style="background: radial-gradient(120% 100% at 50% 0%, rgba(16,185,129,0.08), transparent 70%), var(--surface-2);">
+              <!-- Screen 1: Hub -->
+              <div class="phone-unit">
+                <div class="phone"><div class="phone-screen" style="background:#0C1117; color:#E6EAF0;">
+                  <div class="p-status" style="color:#6B7484;"><span>21:14</span><span>relay</span><span>▮▮▮</span></div>
+                  <div class="p-head">
+                    <div><div class="t" style="color:#F3F5F8;">Hub</div><div class="sub" style="color:#6B7484;">acme-app · main · connected</div></div>
+                    <div class="p-avatar" style="background:#152232; border-color:#1F2C3D;"></div>
+                  </div>
+                  <div class="p-body">
+                    <div class="p-btn pri" style="background:#10B981; color:#06231A; border-radius:12px; flex:0 0 auto;">+ New Agent</div>
+                    <div class="p-card" style="background:#111826; border-color:#1E2735;">
+                      <div class="r"><span class="name" style="color:#F3F5F8;">acme-app</span><span class="p-pill" style="background:rgba(16,185,129,0.14); color:#10B981;">Repo linked</span></div>
+                      <div class="meta" style="color:#6B7484;">github.com/igaltal/acme-app · branch: main</div>
+                    </div>
+                    <div class="p-section-label" style="color:#6B7484;">Quick agents</div>
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px;">
+                      <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="name" style="color:#F3F5F8;">🔍 Explore</div><div class="meta" style="color:#6B7484;">map the codebase</div></div>
+                      <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="name" style="color:#F3F5F8;">🐛 Debug</div><div class="meta" style="color:#6B7484;">find &amp; fix a bug</div></div>
+                      <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="name" style="color:#F3F5F8;">👀 Review</div><div class="meta" style="color:#6B7484;">review changes</div></div>
+                      <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="name" style="color:#F3F5F8;">🎨 UI Review</div><div class="meta" style="color:#6B7484;">check the frontend</div></div>
+                    </div>
+                    <div class="p-section-label" style="color:#6B7484;">Recent sessions</div>
+                    <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="r"><span class="name" style="color:#F3F5F8;">fix: cart total rounding</span><span class="meta" style="color:#6B7484;">2h ago</span></div></div>
+                  </div>
+                  <div class="p-tabs" style="border-color:#1E2735; color:#6B7484;"><span style="color:#10B981; font-weight:600;">● Hub</span><span>Agent</span><span>Code</span><span>Skills</span><span>Settings</span></div>
+                </div></div>
+                <div class="phone-label">01 · Hub: "what can I do right now?"</div>
+              </div>
+
+              <!-- Screen 2: Agent -->
+              <div class="phone-unit">
+                <div class="phone"><div class="phone-screen" style="background:#0C1117; color:#E6EAF0;">
+                  <div class="p-status" style="color:#6B7484;"><span>21:16</span><span>relay</span><span>▮▮▮</span></div>
+                  <div style="display:flex; gap:4px; padding:6px 10px 8px; font-family:var(--font-mono); font-size:8px;">
+                    <span style="background:#10B981; color:#06231A; padding:3px 10px; border-radius:999px; font-weight:600;">Chat</span>
+                    <span style="background:#111826; color:#6B7484; padding:3px 10px; border-radius:999px;">Terminal</span>
+                    <span style="background:#111826; color:#6B7484; padding:3px 10px; border-radius:999px;">Preview</span>
+                  </div>
+                  <div style="margin:0 10px 6px; padding:4px 8px; background:#111826; border:1px solid #1E2735; border-radius:8px; font-family:var(--font-mono); font-size:7.5px; color:#6B7484;">acme-app · main · src/cart/total.ts</div>
+                  <div class="p-body" style="padding-bottom:4px;">
+                    <div class="p-msg me" style="background:#10B981; color:#06231A;">The cart total is off by a cent sometimes. Find it and fix it.</div>
+                    <div class="p-msg agent" style="background:#111826; border-color:#1E2735; color:#9AA4B2;"><b style="color:#F3F5F8;">Agent:</b> Found it. <span class="mono">total.ts</span> sums floats then rounds. Fix: work in cents, round once at the end.</div>
+                    <div style="margin:0 2px; border:1px solid #1E2735; background:#0E1420; border-radius:8px; padding:5px 8px; font-family:var(--font-mono); font-size:7.5px; color:#10B981;">⚙ tool: edit_file · src/cart/total.ts · +6 −4</div>
+                    <div style="margin:0 2px; border:1px solid #1E2735; background:#0E1420; border-radius:8px; padding:5px 8px; font-family:var(--font-mono); font-size:7.5px; color:#10B981;">⚙ tool: run_tests · cart suite · 34 passed</div>
+                    <div style="display:flex; gap:4px; flex-wrap:wrap; padding:2px;">
+                      <span class="p-pill" style="background:#111826; color:#9AA4B2; border:1px solid #1E2735;">show the diff</span>
+                      <span class="p-pill" style="background:#111826; color:#9AA4B2; border:1px solid #1E2735;">run preview</span>
+                    </div>
+                  </div>
+                  <div class="p-input" style="border-color:#1E2735; color:#6B7484;"><span>Message the agent…</span><span class="send" style="background:#10B981;"></span></div>
+                  <div class="p-tabs" style="border-color:#1E2735; color:#6B7484;"><span>Hub</span><span style="color:#10B981; font-weight:600;">● Agent</span><span>Code</span><span>Skills</span><span>Settings</span></div>
+                </div></div>
+                <div class="phone-label">02 · Agent: chat + terminal + preview, one shell</div>
+              </div>
+
+              <!-- Screen 3: Code -->
+              <div class="phone-unit">
+                <div class="phone"><div class="phone-screen" style="background:#0C1117; color:#E6EAF0;">
+                  <div class="p-status" style="color:#6B7484;"><span>21:18</span><span>relay</span><span>▮▮▮</span></div>
+                  <div class="p-head">
+                    <div><div class="t" style="font-family:var(--font-mono); font-size:10px; color:#9AA4B2;">src / cart / <b style="color:#F3F5F8;">total.ts</b></div></div>
+                  </div>
+                  <div class="p-body" style="gap:0;">
+                    <div style="border:1px solid #1E2735; border-radius:10px; overflow:hidden; font-family:var(--font-mono); font-size:7.5px; line-height:1.9; background:#0E1420;">
+                      <div style="padding:0 8px; color:#5C6675;"><span style="color:#3A4453;">12</span>  export function total(items) {</div>
+                      <div style="padding:0 8px; color:#5C6675;"><span style="color:#3A4453;">13</span>    let sum = 0</div>
+                      <div style="padding:0 8px; background:rgba(16,185,129,0.12); color:#C9D4E0;"><span style="color:#10B981;">14</span>    for (const it of items)</div>
+                      <div style="padding:0 8px; background:rgba(16,185,129,0.12); color:#C9D4E0;"><span style="color:#10B981;">15</span>      sum += it.price * it.qty</div>
+                      <div style="padding:0 8px; background:rgba(16,185,129,0.12); color:#C9D4E0;"><span style="color:#10B981;">16</span>    return round(sum, 2)</div>
+                      <div style="padding:0 8px; color:#5C6675;"><span style="color:#3A4453;">17</span>  }</div>
+                    </div>
+                    <div style="margin-top:auto;"></div>
+                  </div>
+                  <div style="margin:0 10px 10px; background:#111826; border:1px solid #1E2735; border-radius:14px 14px 0 0; padding:8px 10px;">
+                    <div style="width:26px; height:3px; border-radius:2px; background:#1E2735; margin:0 auto 6px;"></div>
+                    <div style="font-size:8.5px; color:#9AA4B2; margin-bottom:6px;">3 lines selected · L14-16</div>
+                    <div style="display:flex; gap:5px;">
+                      <div class="p-btn sec" style="border-color:#1E2735; color:#E6EAF0;">Copy</div>
+                      <div class="p-btn pri" style="background:#10B981; color:#06231A;">Ask AI ✨</div>
+                    </div>
+                  </div>
+                </div></div>
+                <div class="phone-label">03 · Code: tap lines, then ask about them</div>
+              </div>
+            </div>
+
+            <div class="device-note">
+              <div class="panel reveal">
+                <h4><span class="k">MOBILE</span> The primary surface</h4>
+                <p>Bottom nav with safe-area inset, bottom sheets for every form, 100dvh layouts for notched devices. Everything reachable with a thumb.</p>
+              </div>
+              <div class="panel reveal" style="--d: 80ms">
+                <h4><span class="k">DESKTOP</span> The same product, wider</h4>
+                <p>Persistent sidebar, split-pane code view, inline modals instead of sheets, a wider chat column. Same components, different layout, nothing to relearn.</p>
+              </div>
+              <div class="panel reveal" style="--d: 160ms">
+                <h4><span class="k">LANDING</span> Two entrances</h4>
+                <p>Desktop landing: hero with a phone mockup, feature sections, trust signals (privacy, bring-your-own-key). Mobile: a swipeable 3-screen onboarding carousel instead of a long scroll, for faster time to signup.</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 12 DESIGN SYSTEM ============ -->
+          <section class="cs" id="design-system">
+            <div class="cs-head reveal">
+              <span class="num">12 · Design system</span>
+              <h2>Dark-first tokens, phone-first components.</h2>
+              <p class="cs-sub">Built on Tailwind with CSS custom properties as the token layer. Light mode is a token swap on <span class="mono">html.light</span>, not a redesign.</p>
+            </div>
+            <div class="spec-grid">
+              <div class="panel spec-panel reveal">
+                <h4>Color · dark-first, 2 themes</h4>
+                <div class="swatches">
+                  <div class="swatch"><i style="background:#10B981"></i><b>accent</b>emerald 500</div>
+                  <div class="swatch"><i style="background:linear-gradient(135deg,#10B981,#06B6D4)"></i><b>brand gradient</b>emerald → cyan</div>
+                  <div class="swatch"><i style="background:#0C1117"></i><b>bg</b>deep base</div>
+                  <div class="swatch"><i style="background:#111826"></i><b>surface</b>cards &amp; sheets</div>
+                  <div class="swatch"><i style="background:#1E2735"></i><b>border</b>hairlines</div>
+                  <div class="swatch"><i style="background:#0E1420"></i><b>code block</b>one step deeper</div>
+                </div>
+                <p class="wire-note" style="margin-top: 1rem">Semantic tokens (<span class="mono">--bg, --surface, --accent</span> and friends) for borders, shadows, code blocks and selection. The gradient is reserved for brand moments only; day-to-day UI uses the flat emerald.</p>
+              </div>
+              <div class="panel spec-panel reveal" style="--d: 60ms">
+                <h4>Core components</h4>
+                <div class="table-wrap" style="margin-top:0;">
+                  <table class="data" style="min-width:0;">
+                    <tbody>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">Button</td><td>4 variants (primary, secondary, ghost, danger) + loading state</td></tr>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">BottomSheet</td><td>mobile-native modals: create project, connect repo, Ask AI</td></tr>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">MobileNav</td><td>fixed bottom tab bar with safe-area inset</td></tr>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">MobileHeader</td><td>contextual title, back nav, new chat, session history</td></tr>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">WorkspaceShell</td><td>the Chat / Terminal / Preview tab switcher</td></tr>
+                      <tr><td class="mono" style="font-size:var(--text-xs)">Input</td><td>labeled fields with focus rings</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <div class="panel spec-panel reveal" style="--d: 120ms">
+                <h4>Type &amp; shape</h4>
+                <div class="type-scale">
+                  <div><span class="sample" style="font-size:1.1rem">Headings, system sans</span><span class="spec">tight scale</span></div>
+                  <div><span class="sample" style="font-size:0.85rem; font-weight:400">Body 14-16, mobile-tuned</span><span class="spec">11-16px scale</span></div>
+                  <div><span class="sample mono" style="font-size:0.78rem">code &amp; file paths, monospace</span><span class="spec">highlight.js</span></div>
+                </div>
+                <p class="wire-note" style="margin-top:1rem"><span class="mono">rounded-2xl</span> cards and <span class="mono">rounded-xl</span> buttons give a soft, modern feel that offsets the dark technical palette.</p>
+              </div>
+              <div class="panel spec-panel reveal" style="--d: 180ms">
+                <h4>Motion &amp; touch</h4>
+                <div class="token-list">
+                  <b>active:scale-[0.98]</b> <i>on primary CTAs, the tactile press</i><br />
+                  <b>touch-manipulation</b> <i>+ no tap highlight, native feel</i><br />
+                  <b>backdrop-blur</b> <i>on sticky headers</i><br />
+                  <b>horizontal chip rows</b> <i>with hidden scrollbars</i><br />
+                  <b>100dvh + safe-area-inset</b> <i>for notched devices</i>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 13 PROTOTYPE ============ -->
+          <section class="cs" id="prototype">
+            <div class="cs-head reveal">
+              <span class="num">13 · Prototype</span>
+              <h2>Walk the core flow.</h2>
+              <p class="cs-sub">A tap-through of the real flow: Hub → agent → code → terminal. Tap the pulsing elements on the phone, or use the steps.</p>
+            </div>
+            <div class="proto-stage reveal">
+              <div class="proto-phone phone" data-proto>
+                <div class="phone-screen" style="background:#0C1117; color:#E6EAF0;">
+                  <div class="proto-screens">
+                    <!-- 0 · Hub -->
+                    <div class="proto-screen active" style="background:#0C1117;">
+                      <div class="p-status" style="color:#6B7484;"><span>21:14</span><span>relay</span><span>▮▮▮</span></div>
+                      <div class="p-head"><div><div class="t" style="color:#F3F5F8;">Hub</div><div class="sub" style="color:#6B7484;">acme-app · main</div></div></div>
+                      <div class="p-body">
+                        <div class="p-section-label" style="color:#6B7484;">Quick agents</div>
+                        <div class="p-card tappable" data-goto="1" role="button" tabindex="0" aria-label="Start a Debug agent" style="background:#111826; border-color:#1E2735;">
+                          <div class="r"><span class="name" style="color:#F3F5F8;">🐛 Debug</span><span class="p-pill" style="background:rgba(16,185,129,0.14); color:#10B981;">Start</span></div>
+                          <div class="meta" style="color:#6B7484;">find and fix a bug in acme-app</div>
+                        </div>
+                        <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="r"><span class="name" style="color:#F3F5F8;">🔍 Explore</span></div><div class="meta" style="color:#6B7484;">map the codebase</div></div>
+                        <div class="p-card" style="background:#111826; border-color:#1E2735;"><div class="r"><span class="name" style="color:#F3F5F8;">👀 Review</span></div><div class="meta" style="color:#6B7484;">review recent changes</div></div>
+                      </div>
+                      <div class="p-tabs" style="border-color:#1E2735; color:#6B7484;"><span style="color:#10B981; font-weight:600;">● Hub</span><span>Agent</span><span>Code</span><span>Skills</span></div>
+                    </div>
+                    <!-- 1 · Chat -->
+                    <div class="proto-screen" style="background:#0C1117;">
+                      <div class="p-status" style="color:#6B7484;"><span>21:15</span><span>relay</span><span>▮▮▮</span></div>
+                      <div style="margin:6px 10px; padding:4px 8px; background:#111826; border:1px solid #1E2735; border-radius:8px; font-family:var(--font-mono); font-size:7.5px; color:#6B7484;">acme-app · main · Debug session</div>
+                      <div class="p-body">
+                        <div class="p-msg me" style="background:#10B981; color:#06231A;">Cart totals are off by a cent sometimes.</div>
+                        <div class="p-msg agent" style="background:#111826; border-color:#1E2735; color:#9AA4B2;"><b style="color:#F3F5F8;">Agent:</b> Reading the cart module… found float math in <span class="mono">total.ts</span>. Writing a fix now.</div>
+                        <div style="border:1px solid #1E2735; background:#0E1420; border-radius:8px; padding:5px 8px; font-family:var(--font-mono); font-size:7.5px; color:#10B981;">⚙ edit_file · src/cart/total.ts · +6 −4</div>
+                      </div>
+                      <div class="p-actionbar">
+                        <div class="p-btn sec" data-goto="0" role="button" tabindex="0" style="border-color:#1E2735; color:#E6EAF0;">Back</div>
+                        <div class="p-btn pri tappable" data-goto="2" role="button" tabindex="0" style="background:#10B981; color:#06231A;">See the code</div>
+                      </div>
+                    </div>
+                    <!-- 2 · Code -->
+                    <div class="proto-screen" style="background:#0C1117;">
+                      <div class="p-status" style="color:#6B7484;"><span>21:16</span><span>relay</span><span>▮▮▮</span></div>
+                      <div class="p-head"><div><div class="t" style="font-family:var(--font-mono); font-size:10px; color:#9AA4B2;">src / cart / <b style="color:#F3F5F8;">total.ts</b></div></div></div>
+                      <div class="p-body">
+                        <div style="border:1px solid #1E2735; border-radius:10px; overflow:hidden; font-family:var(--font-mono); font-size:7.5px; line-height:1.9; background:#0E1420;">
+                          <div style="padding:0 8px; color:#5C6675;"><span style="color:#3A4453;">14</span>  const cents = items.map(toCents)</div>
+                          <div style="padding:0 8px; background:rgba(16,185,129,0.12); color:#C9D4E0;"><span style="color:#10B981;">15</span>  const sum = cents.reduce(add, 0)</div>
+                          <div style="padding:0 8px; background:rgba(16,185,129,0.12); color:#C9D4E0;"><span style="color:#10B981;">16</span>  return fromCents(sum)</div>
+                        </div>
+                        <div style="font-size:8.5px; color:#9AA4B2;">The fix: integer cents, rounded once. Selected lines go to the agent with file + line context.</div>
+                      </div>
+                      <div class="p-actionbar">
+                        <div class="p-btn sec" data-goto="1" role="button" tabindex="0" style="border-color:#1E2735; color:#E6EAF0;">Back to chat</div>
+                        <div class="p-btn pri tappable" data-goto="3" role="button" tabindex="0" style="background:#10B981; color:#06231A;">Run the tests</div>
+                      </div>
+                    </div>
+                    <!-- 3 · Terminal -->
+                    <div class="proto-screen" style="background:#0C1117;">
+                      <div class="p-status" style="color:#6B7484;"><span>21:17</span><span>relay</span><span>▮▮▮</span></div>
+                      <div style="display:flex; gap:4px; padding:6px 10px 8px; font-family:var(--font-mono); font-size:8px;">
+                        <span style="background:#111826; color:#6B7484; padding:3px 10px; border-radius:999px;">Chat</span>
+                        <span style="background:#10B981; color:#06231A; padding:3px 10px; border-radius:999px; font-weight:600;">Terminal</span>
+                        <span style="background:#111826; color:#6B7484; padding:3px 10px; border-radius:999px;">Preview</span>
+                      </div>
+                      <div class="p-body">
+                        <div style="flex:1; border:1px solid #1E2735; border-radius:10px; background:#05070B; padding:8px; font-family:var(--font-mono); font-size:7.5px; line-height:1.9; color:#9AA4B2;">
+                          <div><span style="color:#10B981;">$</span> npm test cart</div>
+                          <div>✓ rounds once at the end</div>
+                          <div>✓ handles 3 × 0.1 correctly</div>
+                          <div>✓ 34 passed, 0 failed</div>
+                          <div><span style="color:#10B981;">$</span> _</div>
+                        </div>
+                        <div style="font-size:8.5px; color:#9AA4B2;">The chat is still mounted behind this tab. Nothing was lost.</div>
+                      </div>
+                      <div class="p-actionbar">
+                        <div class="p-btn pri tappable" data-goto="0" role="button" tabindex="0" style="background:#10B981; color:#06231A;">Done · back to Hub</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="proto-guide">
+                <h3 class="serif" style="font-size: var(--text-lg); margin-bottom: 0.5rem;">Why each step works this way</h3>
+                <p style="color: var(--ink-2); font-size: var(--text-sm);">The flow starts with a tap, keeps context visible, and never loses the conversation.</p>
+                <ol class="proto-steps">
+                  <li><button aria-current="step"><span class="n">01</span><span><b>Start with a preset</b><span>Quick agents turn "write a good prompt" into one tap. The Hub answers "what can I do right now?"</span></span></button></li>
+                  <li><button><span class="n">02</span><span><b>Watch, don't wait</b><span>The agent streams its answer and shows its tool calls. You see what it did, not just what it says.</span></span></button></li>
+                  <li><button><span class="n">03</span><span><b>Check the real code</b><span>The file browser makes code readable at 390px: highlighting, line numbers, tap-to-select, Ask AI in place.</span></span></button></li>
+                  <li><button><span class="n">04</span><span><b>Verify in the same shell</b><span>Terminal and preview are tabs, not other apps. The chat stays mounted, so the stream is never cut.</span></span></button></li>
+                </ol>
+                <p class="proto-hint"><span class="key">←</span><span class="key">→</span> arrow keys work too</p>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 14 CHALLENGES ============ -->
+          <section class="cs" id="challenges">
+            <div class="cs-head reveal">
+              <span class="num">14 · Challenges</span>
+              <h2>The hardest problems weren't visual.</h2>
+            </div>
+
+            <div class="challenge reveal">
+              <h3><span class="k">14.1</span>Switching tabs without killing the agent stream</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>The naive way: separate pages</h5>Chat, terminal, and preview as separate routes. Clean code, terrible experience: navigating away unmounts the chat, and an in-flight streaming answer is lost. On mobile, where switching is constant, this happens all the time.</div>
+                <div class="shipped"><h5>Shipped: one shell, chat stays mounted</h5>The WorkspaceShell keeps the chat mounted and hidden when you switch to Terminal or Preview. Streams keep flowing in the background. This one decision is why the product survives real mobile usage.</div>
+              </div>
+            </div>
+
+            <div class="challenge reveal">
+              <h3><span class="k">14.2</span>Making code readable and selectable at 390px</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: pinch-zoom a desktop code view</h5>What every cloud IDE does on mobile. You spend more time panning than reading, and precise text selection with a finger is hopeless.</div>
+                <div class="shipped"><h5>Shipped: tap-to-select lines + Ask AI</h5>Lines are the selection unit, not characters. Tap lines to select them, then copy or send to the AI, with the file path and line numbers pre-filled. Selection became the main way people talk to the agent about code.</div>
+              </div>
+            </div>
+
+            <div class="challenge reveal">
+              <h3><span class="k">14.3</span>Keeping context visible on a small screen</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: hide context to save space</h5>Screen space is precious, and a context bar costs a row. The temptation is to drop it and trust the user's memory.</div>
+                <div class="shipped"><h5>Shipped: the context bar is never dropped</h5>Active project, connected repo, and branch are always shown in chat and file views. On a phone, memory is the scarcest resource. A row of pixels is cheaper than a wrong action on the wrong repo.</div>
+              </div>
+            </div>
+
+            <div class="challenge reveal">
+              <h3><span class="k">14.4</span>One form, two surfaces</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: desktop modals everywhere</h5>One modal component for all screens. On mobile, centered modals fight the keyboard, ignore the thumb, and feel like a website.</div>
+                <div class="shipped"><h5>Shipped: dual-surface modals</h5>The same form renders as a BottomSheet on mobile and a centered modal on desktop: connect repo, create project, Ask AI. One source of truth for the form, two native-feeling presentations.</div>
+              </div>
+            </div>
+          </section>
+
+          <!-- ============ 15 RESULTS ============ -->
+          <section class="cs" id="results">
+            <div class="cs-head reveal">
+              <span class="num">15 · Results</span>
+              <h2>Shipped, live, and used for real work.</h2>
+              <p class="cs-sub">Relay is in production on Vercel, used for real agent workflows on mobile and desktop.</p>
+            </div>
+            <div class="prose reveal">
+              <h3>What shipped</h3>
+              <ul>
+                <li>Full auth flow: register, login, OAuth, email verification</li>
+                <li>Hub dashboard with quick agents and project switching</li>
+                <li>Agent chat with streaming, visible tool calls, and skills integration</li>
+                <li>File browser with syntax highlighting, search, and tap-to-select → Ask AI</li>
+                <li>Cloud terminal (xterm.js) and live app preview in the workspace shell</li>
+                <li>Projects and repo management, with a PAT connect flow</li>
+                <li>Profile with stat cards, a 30-day activity heatmap, and agent memory topics</li>
+                <li>Settings: AI models and API keys, billing, repos, appearance, security, MCP tools</li>
+                <li>Landing page, features page, legal pages, light/dark theme</li>
+              </ul>
+              <h3>Lessons learned</h3>
+              <ul>
+                <li><strong>The hardest UX problems weren't visual polish.</strong> They were keeping repo context visible, not breaking agent streams when switching tabs, and making code readable and selectable on a small screen.</li>
+                <li><strong>Design for interruption first.</strong> Session URLs, mounted chat, saved history: every continuity feature earned its place the first time a train went into a tunnel.</li>
+                <li><strong>Presets beat prompts on mobile.</strong> Quick agents and suggestion chips carry most sessions. Free-text prompts are the escape hatch, not the main path.</li>
+              </ul>
+              <h3>What's next</h3>
+              <ul>
+                <li>Voice input for steering the agent, hands-free</li>
+                <li>Push notifications when a long agent run finishes</li>
+                <li>Deeper PR flows: review and merge from the same shell</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <!-- next case -->
+    <section class="case-next">
+      <p class="eyebrow reveal">Next case study</p>
+      <a class="reveal" href="swipehire.html" style="--d: 80ms">SwipeHire
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year>2026</span> Igal Talmerom</span>
+      <span class="colophon">Product designed, built and shipped by me.</span>
+      <a href="../index.html#work">← All work</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>

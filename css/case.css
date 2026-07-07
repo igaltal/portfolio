@@ -759,6 +759,16 @@ table.data td:first-child { color: var(--ink); font-weight: 500; }
 .challenge .tradeoff .rejected h5 { color: #C25555; }
 .challenge .tradeoff .shipped h5 { color: #1F9D63; }
 
+/* ---------- Real screenshots ---------- */
+.shot {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: var(--surface-2);
+  box-shadow: var(--shadow-card);
+}
+.shot img { display: block; width: 100%; height: auto; }
+
 /* ---------- Next case footer ---------- */
 .case-next {
   border-top: 1px solid var(--line);

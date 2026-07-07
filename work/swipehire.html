@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-blueprint="off">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SwipeHire | Case Study | Igal Talmerom</title>
+  <meta name="description" content="Case study: SwipeHire, Tinder-style job discovery powered by an AI career agent. Swipe right to apply; the agent does the paperwork." />
+  <script>
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../css/main.css" />
+  <link rel="stylesheet" href="../css/case.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232B3FE4'/><text x='50' y='68' font-size='52' font-family='monospace' fill='white' text-anchor='middle'>IT</text></svg>" />
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <a class="skip-link" href="#overview">Skip to case study</a>
+
+  <header class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="../index.html"><span class="mark">IT</span> Igal Talmerom</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="../index.html#work" aria-current="page">Work</a></li>
+          <li><a href="../index.html#about">About</a></li>
+          <li><a href="../index.html#contact">Contact</a></li>
+          <li><a href="../resume.html">Resume</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn bp-btn" data-blueprint-toggle aria-pressed="false" title="Blueprint mode" aria-label="Toggle blueprint mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </button>
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <section class="case-hero container">
+      <p class="eyebrow reveal">Case study · Shipped product · 2025</p>
+      <h1 class="reveal" style="--d: 80ms">SwipeHire: job hunting, reduced to <em>one gesture.</em></h1>
+      <p class="lede reveal" style="--d: 160ms">
+        SwipeHire ranks jobs for you, writes each application, and tracks every reply.
+        You just swipe right. I took the most successful interaction pattern in mobile,
+        the Tinder swipe, and re-purposed it for career decisions, backed by an AI agent
+        that does the paperwork.
+      </p>
+      <dl class="case-meta reveal" style="--d: 240ms">
+        <div><dt>Role</dt><dd>Solo: product design + frontend + backend</dd></div>
+        <div><dt>Status</dt><dd>Live in production</dd></div>
+        <div><dt>Platform</dt><dd>Mobile-first web app (PWA-ready)</dd></div>
+        <div><dt>Stack</dt><dd>Next.js 15 · React 19 · Framer Motion · Zustand</dd></div>
+      </dl>
+    </section>
+
+    <div class="container">
+      <div class="case-layout">
+        <nav class="toc" aria-label="Case study contents">
+          <ol>
+            <li><a href="#overview"><span class="n">01</span>Overview</a></li>
+            <li><a href="#problem"><span class="n">02</span>Problem</a></li>
+            <li><a href="#goals"><span class="n">03</span>Goals</a></li>
+            <li><a href="#research"><span class="n">04</span>Research</a></li>
+            <li><a href="#personas"><span class="n">05</span>Personas</a></li>
+            <li><a href="#journey"><span class="n">06</span>User journey</a></li>
+            <li><a href="#ia"><span class="n">07</span>Information architecture</a></li>
+            <li><a href="#flow"><span class="n">08</span>User flow</a></li>
+            <li><a href="#wireframes"><span class="n">09</span>Wireframes</a></li>
+            <li><a href="#exploration"><span class="n">10</span>Exploration</a></li>
+            <li><a href="#final-ui"><span class="n">11</span>Final UI</a></li>
+            <li><a href="#design-system"><span class="n">12</span>Design system</a></li>
+            <li><a href="#prototype"><span class="n">13</span>The swipe deck</a></li>
+            <li><a href="#challenges"><span class="n">14</span>Challenges</a></li>
+            <li><a href="#results"><span class="n">15</span>Results</a></li>
+          </ol>
+        </nav>
+
+        <div>
+          <section class="cs" id="overview">
+            <div class="cs-head reveal">
+              <span class="num">01 · Overview</span>
+              <h2>Swipe right to apply. The agent does the rest.</h2>
+            </div>
+            <div class="prose reveal">
+              <p>
+                SwipeHire is a job discovery app built around one motion: <strong>swipe right to
+                apply, left to skip, up to super-like, down to block a company.</strong> Behind the
+                gesture, an AI career agent ranks jobs against your profile, writes each
+                application, and tracks every reply. You approve every send.
+              </p>
+              <p>
+                <strong>Who it's for:</strong> people in an active job search who are tired of tabs
+                and forms, and people who are only "open to offers" and want five useful minutes a
+                day instead of an evening of paperwork.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="problem">
+            <div class="cs-head reveal">
+              <span class="num">02 · Problem</span>
+              <h2>Job hunting is high friction and low feedback.</h2>
+            </div>
+            <div class="prose reveal">
+              <h3>User pain</h3>
+              <p>
+                A normal job search means dozens of tabs, the same form filled again and again,
+                cover letters nobody reads, and silence at the end. There is no sense of progress
+                and no feedback loop. People burn out on the process before they burn out on the
+                market.
+              </p>
+              <h3>The design goal</h3>
+              <p>
+                Compress "finding and applying to a job" into a gesture. Something you can do in
+                under 5 minutes a day, on your phone, without it feeling like paperwork.
+              </p>
+              <h3>Why existing tools don't solve it</h3>
+              <ul>
+                <li><strong>Job boards and LinkedIn.</strong> Search, filter, click, form, repeat. Built for browsing, not deciding. "Easy Apply" still means a form, and quality signal is thin.</li>
+                <li><strong>Auto-apply bots.</strong> They spray applications you never saw. Recruiters can tell, users lose trust, and a "match" means nothing.</li>
+                <li><strong>Spreadsheet + willpower.</strong> The default system. It works exactly as well as your discipline on a bad week.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cs" id="goals">
+            <div class="cs-head reveal">
+              <span class="num">03 · Goals</span>
+              <h2>Five minutes a day, and every send approved.</h2>
+            </div>
+            <div class="table-wrap reveal">
+              <table class="data">
+                <thead><tr><th>Lens</th><th>Goal</th><th>How the design delivers it</th></tr></thead>
+                <tbody>
+                  <tr><td>User</td><td>A daily session under 5 minutes</td><td>One decision per screen, one gesture per decision, a deck instead of a list</td></tr>
+                  <tr><td>User</td><td>Decide in about 2 seconds per job</td><td>Match-score ring, key chips and salary fixed in the card header</td></tr>
+                  <tr><td>User</td><td>Trust the automation</td><td>You approve every send; apply-type badges set honest expectations; undo everywhere</td></tr>
+                  <tr><td>Product</td><td>A novel 4-way gesture that people learn instantly</td><td>Progressive stamps while dragging + redundant labeled buttons</td></tr>
+                  <tr><td>Product</td><td>"Match" must mean something</td><td>A match forms only when a company replies positively, so matches stay meaningful</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </section>
+
+          <section class="cs" id="research">
+            <div class="cs-head reveal">
+              <span class="num">04 · Research</span>
+              <h2>Steal the gesture, fix the meaning.</h2>
+              <p class="cs-sub">I tore down the flows of LinkedIn, Indeed, and Otta, studied how dating apps teach swiping, and watched friends run their job searches (mostly: many tabs, one spreadsheet, and dread).</p>
+            </div>
+            <div class="insights">
+              <div class="insight reveal"><div><h4>The bottleneck is deciding, not finding</h4><p>Job seekers don't lack listings. They lack a fast, low-effort way to say yes or no and move on. A deck of cards with one decision at a time removes the paradox of choice that a list creates.</p></div></div>
+              <div class="insight reveal" style="--d: 60ms"><div><h4>People swipe with flicks, not drags</h4><p>Watching real swiping: quick short flicks, not long careful drags. So decisions must trigger on distance <em>or velocity</em>. A fast flick counts even if it's short. Respecting this is what makes the gesture feel natural.</p></div></div>
+              <div class="insight reveal" style="--d: 120ms"><div><h4>Automation without honesty kills trust</h4><p>People had been burned by "1-click apply" that turned into a 20-minute form. Setting expectations up front (1-click / Form / Complex badges) prevents the frustration that makes users quit.</p></div></div>
+              <div class="insight reveal" style="--d: 180ms"><div><h4>Irreversibility creates hesitation</h4><p>When a swipe cannot be taken back, people slow down and the whole model collapses. Undo for the last swipe is not a nice-to-have. It's what makes fast swiping emotionally safe.</p></div></div>
+            </div>
+          </section>
+
+          <section class="cs" id="personas">
+            <div class="cs-head reveal">
+              <span class="num">05 · User personas</span>
+              <h2>The active seeker and the quiet browser.</h2>
+            </div>
+            <div class="grid-2">
+              <article class="persona reveal">
+                <div class="persona-head">
+                  <div class="persona-avatar" aria-hidden="true">A</div>
+                  <div><h4>The active seeker</h4><div class="role">Between jobs or done with the current one. Applying is their job now.</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"I applied to 40 places this month. I heard back from three."</div>
+                  <div><h5>Behaviors</h5><ul><li>Applies daily, tracks in a spreadsheet, loses track anyway</li><li>Copy-pastes the same answers into different forms</li></ul></div>
+                  <div><h5>Needs</h5><ul><li>Volume without the paperwork</li><li>A pipeline view: applied, pending, match, interview, offer</li><li>Feedback: what happened to each application</li></ul></div>
+                  <div><h5>What SwipeHire gives them</h5><ul><li>The deck for volume, the dashboard for the funnel</li><li>The agent writes each application; they just approve</li></ul></div>
+                </div>
+              </article>
+              <article class="persona reveal" style="--d: 100ms">
+                <div class="persona-head">
+                  <div class="persona-avatar alt" aria-hidden="true">Q</div>
+                  <div><h4>The quiet browser</h4><div class="role">Employed, curious, "open to offers". Five minutes a day, max.</div></div>
+                </div>
+                <div class="persona-body">
+                  <div class="persona-quote">"I'm not job hunting. But if something great shows up, I want to see it."</div>
+                  <div><h5>Behaviors</h5><ul><li>Checks casually, on the couch, in short sessions</li><li>Never fills a form for a "maybe"</li></ul></div>
+                  <div><h5>Needs</h5><ul><li>High-signal cards: is this worth my attention?</li><li>Zero commitment per decision, zero paperwork</li><li>Block companies (like their own employer) from the deck</li></ul></div>
+                  <div><h5>What SwipeHire gives them</h5><ul><li>Match ring + why-it-matches: 2-second decisions</li><li>Swipe down to block a company, forever</li></ul></div>
+                </div>
+              </article>
+            </div>
+          </section>
+
+          <section class="cs" id="journey">
+            <div class="cs-head reveal">
+              <span class="num">06 · User journey</span>
+              <h2>An evening of job hunting, before and after.</h2>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="journey" role="table" aria-label="User journey map">
+                <div class="jh">Stage</div>
+                <div class="stage">Find</div><div class="stage">Evaluate</div><div class="stage">Apply</div><div class="stage">Track</div><div class="stage">Hear back</div>
+                <div class="jh">Before</div>
+                <div>Opens 5 job boards. Same jobs, different order. 30 tabs.</div>
+                <div>Reads long postings. Half are stale, a third are wrong level.</div>
+                <div>The same form, again. Resume upload, then re-type the resume into fields.</div>
+                <div>Updates the spreadsheet. Forgets to. Loses the thread.</div>
+                <div>Mostly silence. No idea what worked or why.</div>
+                <div class="jh">After</div>
+                <div>Opens SwipeHire. The deck is ranked for them, top match first.</div>
+                <div>Each card answers "is this worth it?" in 2 seconds: ring, chips, salary, why-it-matches.</div>
+                <div>Swipe right. The agent writes the application; they approve the send.</div>
+                <div>The funnel updates itself: Applied → Pending → Match → Interview → Offer.</div>
+                <div>A match forms only on a real company reply, so every match matters.</div>
+                <div class="jh">Design takeaway</div>
+                <div class="opp">Rank, don't list. One card at a time.</div>
+                <div class="opp">Fixed header carries the decision data.</div>
+                <div class="opp">The gesture is the application.</div>
+                <div class="opp">Tracking is automatic, never manual.</div>
+                <div class="opp">Keep "match" scarce and real.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="ia">
+            <div class="cs-head reveal">
+              <span class="num">07 · Information architecture</span>
+              <h2>A funnel you can feel.</h2>
+              <p class="cs-sub">One mental model runs the whole app: <span class="mono">Discover → Applied → Pending → Match → Interview → Offer</span>. Every screen is a view of that funnel.</p>
+            </div>
+            <div class="scroll-x reveal">
+              <div class="ia-tree" role="img" aria-label="Information architecture: Discover swipe deck, Matches pipeline, Dashboard analytics, Coach and Profile">
+                <div class="ia-col">
+                  <div class="ia-col-title">Core loop</div>
+                  <div class="ia-node root"><b>Discover</b><span>the swipe deck, full-screen</span></div>
+                  <div class="ia-node hot"><b>Job card</b><span>ring · chips · why-it-matches</span></div>
+                  <div class="ia-node"><b>Undo</b><span>take back the last swipe</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Pipeline</div>
+                  <div class="ia-node root"><b>Matches</b><span>the funnel, stage by stage</span></div>
+                  <div class="ia-node"><b>Applied / Pending</b><span>what the agent sent</span></div>
+                  <div class="ia-node hot"><b>Match</b><span>forms only on a company reply</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Insight</div>
+                  <div class="ia-node root"><b>Dashboard</b><span>analytics on your search</span></div>
+                  <div class="ia-node"><b>Funnel stats</b><span>conversion between stages</span></div>
+                  <div class="ia-node"><b>Coach</b><span>AI guidance on gaps &amp; profile</span></div>
+                </div>
+                <div class="ia-col">
+                  <div class="ia-col-title">Identity</div>
+                  <div class="ia-node root"><b>Profile</b><span>what the agent applies with</span></div>
+                  <div class="ia-node"><b>Onboarding</b><span>skills, preferences, blockers</span></div>
+                  <div class="ia-node"><b>Settings</b><span>filters, blocked companies</span></div>
+                </div>
+              </div>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>Navigation:</strong> a bottom tab bar with an active "pill" (brand fill + glow),
+                auto-hidden on immersive screens (the full-screen deck, onboarding, marketing) so nothing
+                competes with the main task. On desktop, the app renders inside a centered 440px phone
+                shell, so the experience is identical everywhere.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="flow">
+            <div class="cs-head reveal">
+              <span class="num">08 · User flow</span>
+              <h2>The anatomy of one swipe.</h2>
+              <p class="cs-sub">What happens between "finger down" and "application sent". Most of the product's intelligence hides inside this one gesture.</p>
+            </div>
+            <div class="panel reveal scroll-x">
+              <svg class="flow-svg" viewBox="0 0 920 300" role="img" aria-label="Flow: drag a card, stamps fade in with distance, release triggers on distance or velocity, right swipe sends to the agent which writes the application for approval">
+                <defs>
+                  <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+                    <path d="M0 0 L10 5 L0 10 z" class="arrowhead"/>
+                  </marker>
+                </defs>
+                <rect class="node-accent" x="10" y="120" width="120" height="56" rx="12"/>
+                <text x="70" y="144" text-anchor="middle">Finger down</text>
+                <text x="70" y="160" text-anchor="middle" class="t-dim">card follows, rotates ±18°</text>
+
+                <rect class="node" x="170" y="120" width="150" height="56" rx="12"/>
+                <text x="245" y="144" text-anchor="middle">Stamp fades in</text>
+                <text x="245" y="160" text-anchor="middle" class="t-dim">APPLY / SKIP / SUPER / BLOCK</text>
+
+                <polygon class="decision" points="440,100 520,148 440,196 360,148"/>
+                <text x="440" y="144" text-anchor="middle">Distance or</text>
+                <text x="440" y="158" text-anchor="middle">velocity?</text>
+
+                <rect class="node" x="390" y="20" width="130" height="48" rx="12"/>
+                <text x="455" y="40" text-anchor="middle">Snap back</text>
+                <text x="455" y="55" text-anchor="middle" class="t-dim">spring, no decision</text>
+
+                <rect class="node" x="570" y="120" width="140" height="56" rx="12"/>
+                <text x="640" y="140" text-anchor="middle">Fly out + commit</text>
+                <text x="640" y="156" text-anchor="middle" class="t-dim">next card peeks up</text>
+                <text x="640" y="169" text-anchor="middle" class="t-dim">undo available</text>
+
+                <rect class="node" x="570" y="230" width="140" height="48" rx="12"/>
+                <text x="640" y="250" text-anchor="middle">Skip / Block</text>
+                <text x="640" y="265" text-anchor="middle" class="t-dim">left / down · learns taste</text>
+
+                <rect class="terminal" x="760" y="122" width="150" height="52" rx="26"/>
+                <text x="835" y="144" text-anchor="middle" class="t-light">Agent applies</text>
+                <text x="835" y="159" text-anchor="middle" class="t-dim">writes it · you approve</text>
+
+                <path class="edge" d="M130 148 H166"/>
+                <path class="edge" d="M320 148 H356"/>
+                <path class="edge" d="M440 100 V72"/>
+                <text x="422" y="88" class="t-dim" text-anchor="end">neither</text>
+                <path class="edge" d="M390 44 h-200 v72"/>
+                <path class="edge edge-accent" d="M520 148 H566"/>
+                <text x="543" y="138" class="t-dim" text-anchor="middle">committed</text>
+                <path class="edge" d="M640 176 V226"/>
+                <text x="655" y="205" class="t-dim">left / down</text>
+                <path class="edge edge-accent" d="M710 148 H756"/>
+                <text x="733" y="138" class="t-dim" text-anchor="middle">right / up</text>
+              </svg>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
+              <p>
+                <strong>The key decision:</strong> triggering on <em>either</em> distance or velocity.
+                A quick flick counts even if it's short, because that is how people actually swipe.
+                And the stamp fades in progressively with drag distance, so you always know what will
+                happen <em>before</em> you let go. That is the core affordance that makes a 4-direction
+                gesture learnable.
+              </p>
+            </div>
+          </section>
+
+          <section class="cs" id="wireframes">
+            <div class="cs-head reveal">
+              <span class="num">09 · Wireframes</span>
+              <h2>How much job fits on one card?</h2>
+              <p class="cs-sub">The card had to answer "is this worth a swipe?" in about 2 seconds, while carrying a lot of data. Three structures.</p>
+            </div>
+            <div class="grid-3">
+              <div class="wire reveal">
+                <svg viewBox="0 0 120 200" role="img" aria-label="Wireframe: minimal card with only title and company">
+                  <rect class="wf-frame" x="8" y="8" width="104" height="184" rx="12"/>
+                  <rect class="wf-box" x="20" y="24" width="36" height="36" rx="8"/>
+                  <line class="wf-line" x1="20" y1="80" x2="90" y2="80"/>
+                  <line class="wf-line-dim" x1="20" y1="98" x2="70" y2="98"/>
+                  <rect class="wf-cta" x="20" y="160" width="80" height="16" rx="8"/>
+                </svg>
+                <div class="wire-label">Study 1: minimal card</div>
+                <p class="wire-note">Logo, title, company, one line. Beautiful and fast, but people could not decide: every swipe felt like a guess. <strong>Dropped:</strong> speed without information is just gambling.</p>
+              </div>
+              <div class="wire reveal" style="--d: 80ms">
+                <svg viewBox="0 0 120 200" role="img" aria-label="Wireframe: full detail scrolling card">
+                  <rect class="wf-frame" x="8" y="8" width="104" height="184" rx="12"/>
+                  <line class="wf-line" x1="20" y1="24" x2="86" y2="24"/>
+                  <rect class="wf-solid" x="20" y="36" width="80" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="48" width="72" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="60" width="80" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="72" width="60" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="84" width="76" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="96" width="68" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="108" width="80" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="120" width="54" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="132" width="74" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="144" width="66" height="5" rx="2.5"/>
+                </svg>
+                <div class="wire-label">Study 2: the full posting</div>
+                <p class="wire-note">Everything on the card, scroll to read. Confident decisions, but each one took a minute. The "5 minutes a day" promise died. <strong>Dropped.</strong></p>
+              </div>
+              <div class="wire reveal" style="--d: 160ms">
+                <svg viewBox="0 0 120 200" role="img" aria-label="Wireframe: fixed header with match ring, scrollable body">
+                  <rect class="wf-frame" x="8" y="8" width="104" height="184" rx="12"/>
+                  <circle cx="92" cy="32" r="12" fill="none" stroke="#999" stroke-width="3"/>
+                  <line class="wf-line" x1="20" y1="26" x2="66" y2="26"/>
+                  <line class="wf-line-dim" x1="20" y1="40" x2="56" y2="40"/>
+                  <rect class="wf-box" x="20" y="52" width="24" height="10" rx="5"/>
+                  <rect class="wf-box" x="48" y="52" width="24" height="10" rx="5"/>
+                  <rect class="wf-box" x="76" y="52" width="24" height="10" rx="5"/>
+                  <line class="wf-x" x1="14" y1="72" x2="106" y2="72"/>
+                  <rect class="wf-solid" x="20" y="82" width="76" height="5" rx="2.5"/>
+                  <rect class="wf-solid" x="20" y="94" width="64" height="5" rx="2.5"/>
+                  <rect class="wf-box" x="20" y="110" width="38" height="22" rx="4"/>
+                  <rect class="wf-box" x="62" y="110" width="38" height="22" rx="4"/>
+                  <rect class="wf-cta" x="20" y="166" width="80" height="14" rx="7"/>
+                </svg>
+                <div class="wire-label">Study 3: fixed header + depth on scroll</div>
+                <p class="wire-note">Header is fixed: company, title, match ring, key chips. The body scrolls for depth: why-it-matches, skills, missing skills, salary, benefits. A pinned "view full posting" link is always reachable. <strong>Shipped.</strong></p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="exploration">
+            <div class="cs-head reveal">
+              <span class="num">10 · Design exploration</span>
+              <h2>Escaping the AI-purple cliché.</h2>
+              <p class="cs-sub">Every AI product in 2025 shipped in purple gradients. The visual exploration was about finding a voice that says "trust + career", not "chatbot".</p>
+            </div>
+            <div class="grid-3">
+              <div class="panel concept reveal">
+                <h4>A: "AI purple"</h4>
+                <p>Violet gradients, sparkles, glow. Instantly reads as AI, and instantly reads as every other AI app. For something touching your career, it felt more gimmick than partner.</p>
+                <div class="verdict">Rejected. Category cliché, wrong emotion.</div>
+              </div>
+              <div class="panel concept reveal" style="--d: 80ms">
+                <h4>B: "Dating app warm"</h4>
+                <p>Leaning into the Tinder DNA: warm reds and pinks, playful copy. Fun, but it trivialised the decisions. A job is not a crush; the swipe is borrowed, the tone should not be.</p>
+                <div class="verdict">Rejected. The gesture can be playful; the stakes are not.</div>
+              </div>
+              <div class="panel concept chosen reveal" style="--d: 160ms">
+                <span class="badge">Shipped</span>
+                <h4>C: "Trust blue, glass dark"</h4>
+                <p>An azure/cobalt brand blue (trust + growth) on a layered dark UI with glassmorphism surfaces, and semantic accents mapped to actions: mint for apply, flame for skip, sky for super-like, gold for warnings.</p>
+                <div class="verdict win">Selected. Serious enough for careers, alive enough for swiping.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="final-ui">
+            <div class="cs-head reveal">
+              <span class="num">11 · Final UI</span>
+              <h2>The job card: dense data, 2-second read.</h2>
+              <p class="cs-sub">A live coded mockup of the deck's job card, in SwipeHire's own palette, with the peeking next card behind it.</p>
+            </div>
+            <div class="ui-stage reveal" style="background: radial-gradient(120% 100% at 50% 0%, rgba(46,107,246,0.10), transparent 70%), #0D0F16; border-color:#1F2330;">
+              <div style="position:relative; width:min(300px,100%); padding:1rem 0 0.5rem;">
+                <!-- peeking next card -->
+                <div style="position:absolute; inset:24px 10px auto; height:120px; border-radius:20px; background:#141826; border:1px solid #222839; transform:scale(0.94) translateY(-14px); opacity:0.7;"></div>
+                <!-- main card -->
+                <div style="position:relative; border-radius:22px; background:rgba(22,26,40,0.92); border:1px solid #262D42; box-shadow:0 24px 60px rgba(0,0,0,0.5); padding:16px; color:#E7EBF4; backdrop-filter:blur(10px);">
+                  <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:10px;">
+                    <div style="display:flex; gap:10px; align-items:center;">
+                      <div style="width:38px; height:38px; border-radius:10px; background:#1D2334; border:1px solid #2A3148; display:grid; place-items:center; font-weight:700; font-size:13px;">◩</div>
+                      <div>
+                        <div style="font-size:10px; color:#8E97AC;">Linear</div>
+                        <div style="font-weight:650; font-size:14px; line-height:1.25;">Senior Frontend Engineer</div>
+                        <div style="font-size:9.5px; color:#8E97AC;">Remote · Europe</div>
+                      </div>
+                    </div>
+                    <div style="width:38px; height:38px; flex:none; border-radius:50%; border:3.5px solid #2dd4a7; display:grid; place-items:center; font-family:var(--font-mono); font-size:11px; font-weight:700; color:#2dd4a7;">96</div>
+                  </div>
+                  <div style="display:flex; gap:5px; margin:10px 0;">
+                    <span style="font-size:8.5px; font-family:var(--font-mono); padding:3px 8px; border-radius:999px; background:#1D2334; border:1px solid #2A3148; color:#AEB7CC;">Full-time</span>
+                    <span style="font-size:8.5px; font-family:var(--font-mono); padding:3px 8px; border-radius:999px; background:#1D2334; border:1px solid #2A3148; color:#AEB7CC;">Remote</span>
+                    <span style="font-size:8.5px; font-family:var(--font-mono); padding:3px 8px; border-radius:999px; background:rgba(45,212,167,0.12); border:1px solid rgba(45,212,167,0.4); color:#2dd4a7;">1-click apply</span>
+                  </div>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:6px; margin-bottom:10px;">
+                    <div style="background:#12151F; border:1px solid #222839; border-radius:12px; padding:8px 10px;">
+                      <div style="font-size:7.5px; font-family:var(--font-mono); letter-spacing:0.1em; color:#8E97AC;">SALARY</div>
+                      <div style="font-size:12px; font-weight:650;">€130k-€175k</div>
+                    </div>
+                    <div style="background:#12151F; border:1px solid #222839; border-radius:12px; padding:8px 10px;">
+                      <div style="font-size:7.5px; font-family:var(--font-mono); letter-spacing:0.1em; color:#8E97AC;">APPLY CONFIDENCE</div>
+                      <div style="font-size:12px; font-weight:650; color:#2dd4a7;">92%</div>
+                    </div>
+                  </div>
+                  <div style="font-size:7.5px; font-family:var(--font-mono); letter-spacing:0.1em; color:#8E97AC; margin-bottom:5px;">WHY THIS MATCHES YOU</div>
+                  <div style="display:grid; gap:4px; font-size:9.5px; color:#C6CEDF;">
+                    <div>✓ Your React + TypeScript depth maps 1:1 to the core stack</div>
+                    <div>✓ You've shipped design-system work they prioritize</div>
+                    <div>✓ Remote-first in your preferred CET timezone</div>
+                  </div>
+                  <div style="display:flex; justify-content:space-around; margin-top:14px; padding-top:12px; border-top:1px solid #222839;">
+                    <div style="text-align:center;"><div style="width:34px; height:34px; border-radius:50%; border:1.5px solid #ff5470; display:grid; place-items:center; color:#ff5470; margin:0 auto 3px;">✕</div><div style="font-size:7.5px; color:#8E97AC;">Skip</div></div>
+                    <div style="text-align:center;"><div style="width:34px; height:34px; border-radius:50%; border:1.5px solid #38bdf8; display:grid; place-items:center; color:#38bdf8; margin:0 auto 3px;">★</div><div style="font-size:7.5px; color:#8E97AC;">Super</div></div>
+                    <div style="text-align:center;"><div style="width:34px; height:34px; border-radius:50%; background:#2dd4a7; display:grid; place-items:center; color:#06231A; margin:0 auto 3px;">⚡</div><div style="font-size:7.5px; color:#8E97AC;">Apply</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="device-note">
+              <div class="panel reveal">
+                <h4><span class="k">DECK</span> Immersive by design</h4>
+                <p>Full screen, tab bar hidden. Nothing competes with the decision. The peeking next card (scaled 0.94, shifted down) says "there's more" without showing it.</p>
+              </div>
+              <div class="panel reveal" style="--d: 80ms">
+                <h4><span class="k">DESKTOP</span> A phone in the middle</h4>
+                <p>On desktop the app renders inside a centered 440px phone shell. One layout to perfect, identical muscle memory everywhere.</p>
+              </div>
+              <div class="panel reveal" style="--d: 160ms">
+                <h4><span class="k">HONESTY CUES</span> Badges before swipes</h4>
+                <p>"1-click", "Form", "Complex" badges set expectations before the swipe. A small honesty cue that prevents the frustration that kills trust in automation.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="design-system">
+            <div class="cs-head reveal">
+              <span class="num">12 · Design system</span>
+              <h2>Semantic color, glass surfaces, three motions.</h2>
+              <p class="cs-sub">Built on Tailwind with custom design tokens. Every accent color is mapped to a meaning, not a mood.</p>
+            </div>
+            <div class="spec-grid">
+              <div class="panel spec-panel reveal">
+                <h4>Color · action-mapped tokens</h4>
+                <div class="swatches">
+                  <div class="swatch"><i style="background:#2e6bf6"></i><b>brand</b>primary / trust</div>
+                  <div class="swatch"><i style="background:#2dd4a7"></i><b>mint</b>apply / positive</div>
+                  <div class="swatch"><i style="background:#ff5470"></i><b>flame</b>skip / reject</div>
+                  <div class="swatch"><i style="background:#38bdf8"></i><b>sky</b>super-like</div>
+                  <div class="swatch"><i style="background:#ffb648"></i><b>gold</b>warnings / gaps</div>
+                  <div class="swatch"><i style="background:#0D0F16"></i><b>ink 950</b>layered dark base</div>
+                </div>
+                <p class="wire-note" style="margin-top: 1rem">The azure/cobalt brand was a deliberate move away from "AI purple": trust + growth, the career world's colors. Action colors repeat everywhere: stamps, buttons, funnel stages, charts.</p>
+              </div>
+              <div class="panel spec-panel reveal" style="--d: 60ms">
+                <h4>Surfaces, type &amp; motion</h4>
+                <div class="token-list">
+                  <b>.glass / .glass-strong</b> <i>two tiers of translucency + backdrop blur</i><br />
+                  <b>radius 2rem-2.5rem</b> <i>friendly, tactile shapes</i><br />
+                  <b>Inter</b> <i>tight headline leading, wide-tracked micro-labels</i><br />
+                  <b>fade-up · shimmer · float</b> <i>the three motion presets, used everywhere</i><br />
+                  <b>chip · btn · stat-card</b> <i>reusable primitives, no one-off styles</i>
+                </div>
+                <p class="wire-note" style="margin-top:1rem">Soft radial glows on the background give depth without noise. <span class="mono">color-scheme: dark</span>, PWA meta, and safe-area insets make it feel like a native app.</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="prototype">
+            <div class="cs-head reveal">
+              <span class="num">13 · The swipe deck</span>
+              <h2>Physics that make a gesture feel honest.</h2>
+              <p class="cs-sub">The deck is the product's signature interaction, and where most of the interaction-design work went. Built with Framer Motion.</p>
+            </div>
+            <div class="prose reveal">
+              <h3>The gesture</h3>
+              <ul>
+                <li><strong>Elastic drag with mapped rotation.</strong> The card follows the finger, rotating from -18° to +18° with horizontal offset, so it feels like a physical card, not a div.</li>
+                <li><strong>Distance or velocity.</strong> A decision triggers on either. A quick flick counts even if it's short, because that is how people actually swipe.</li>
+                <li><strong>Spring everything.</strong> Snap-back spring if the gesture is unclear; a directional fly-out spring when committed.</li>
+              </ul>
+              <h3>The feedback</h3>
+              <ul>
+                <li><strong>Progressive stamps.</strong> As you drag, a color tint, border, and action stamp (APPLY / SKIP / SUPER / BLOCK) fade in with distance. You always know what will happen before you release.</li>
+                <li><strong>The peeking card.</strong> The next card sits behind at 0.94 scale, communicating depth and "there's more".</li>
+              </ul>
+              <h3>The safety net</h3>
+              <ul>
+                <li><strong>Every gesture has a labeled button.</strong> Accessible, and discoverable for first-timers. The buttons teach the gestures.</li>
+                <li><strong>Undo the last swipe.</strong> And an "all caught up" empty state with a reset. Fast swiping is only possible when mistakes are cheap.</li>
+              </ul>
+            </div>
+          </section>
+
+          <section class="cs" id="challenges">
+            <div class="cs-head reveal">
+              <span class="num">14 · Challenges</span>
+              <h2>The hard decisions.</h2>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.1</span>Teaching a 4-direction gesture without a tutorial</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: an onboarding tutorial overlay</h5>The standard fix: arrows and tooltips on first launch. People skip it, forget it, and it admits the design failed to explain itself.</div>
+                <div class="shipped"><h5>Shipped: the interface teaches while you use it</h5>Progressive stamps show the outcome mid-drag, and every gesture has a labeled button doing the same thing. First-timers tap the buttons and see the deck respond; by the third card they're swiping. No tutorial screen exists.</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.2</span>Automation vs. the user's name on the application</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: fully automatic sending</h5>Swipe right, application gone. Maximum speed, and the numbers look great, until users realise things were sent in their name that they never saw. Trust dies once and never comes back.</div>
+                <div class="shipped"><h5>Shipped: the agent writes, you approve</h5>Every application is drafted by the agent and approved by the user before sending. "Free. You approve every send." is on the landing page because it is the trust contract of the whole product.</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.3</span>What counts as a "match"?</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: match on every application</h5>Like dating apps: swipe right = match. Feels rewarding for a day, then "matches" becomes a list of silence, and the word loses all meaning.</div>
+                <div class="shipped"><h5>Shipped: a match forms only on a positive company reply</h5>An intentional emotional-design choice. Matches are rarer and real. When the app says "match", something actually happened.</div>
+              </div>
+            </div>
+            <div class="challenge reveal">
+              <h3><span class="k">14.4</span>International from day one</h3>
+              <div class="tradeoff">
+                <div class="rejected"><h5>Considered: LTR now, RTL "later"</h5>The classic debt. Retrofitting RTL into a gesture-driven, position-sensitive UI later is a rewrite, not a patch.</div>
+                <div class="shipped"><h5>Shipped: logical properties from the ground up</h5><span class="mono">dir="rtl"</span> support, <span class="mono">margin-inline</span>, <span class="mono">text-align: start</span> throughout. Plus aria-labels on icon-only buttons, semantic headings, and a dedicated accessibility page.</div>
+              </div>
+            </div>
+          </section>
+
+          <section class="cs" id="results">
+            <div class="cs-head reveal">
+              <span class="num">15 · Results</span>
+              <h2>A job search that fits in a coffee break.</h2>
+              <p class="cs-sub">SwipeHire is live, with the full loop working end to end.</p>
+            </div>
+            <div class="prose reveal">
+              <h3>What shipped</h3>
+              <ul>
+                <li>The swipe deck with physics-based gestures, stamps, undo, and empty states</li>
+                <li>The job card: match-score ring, apply-type badges, why-it-matches, salary, apply-confidence</li>
+                <li>The AI agent loop: ranking, application writing, approval, reply tracking</li>
+                <li>Matches pipeline and analytics dashboard built on one funnel model</li>
+                <li>AI Coach, profile, onboarding, and settings</li>
+                <li>A complete design system: semantic tokens, glass surfaces, three motion presets</li>
+                <li>RTL-ready, accessible, PWA-grade mobile experience</li>
+              </ul>
+              <h3>Lessons learned</h3>
+              <ul>
+                <li><strong>Design for the gesture, not the form.</strong> Reducing a multi-step, form-heavy flow to one motion changed how the product feels more than any visual decision.</li>
+                <li><strong>Layered feedback makes novel interactions learnable.</strong> Stamps + tint + buttons taught a 4-way gesture with zero tutorial.</li>
+                <li><strong>Trust is a feature you ship.</strong> Approve-every-send, honest badges, meaningful matches, undo. Each one costs speed and buys the product its life.</li>
+              </ul>
+              <h3>What's next</h3>
+              <ul>
+                <li>Interview prep flows attached to each match</li>
+                <li>Salary negotiation guidance from the Coach</li>
+                <li>Team/referral features: share a card with a friend</li>
+              </ul>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <section class="case-next">
+      <p class="eyebrow reveal">Next case study</p>
+      <a class="reveal" href="beamctrl.html" style="--d: 80ms">BEAM-CTRL
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+      </a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year>2026</span> Igal Talmerom</span>
+      <span class="colophon">Product designed, built and shipped by me.</span>
+      <a href="../index.html#work">← All work</a>
+    </div>
+  </footer>
+
+  <script src="../js/main.js"></script>
+</body>
+</html>
