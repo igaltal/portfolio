@@ -467,6 +467,144 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   .redline-tag { opacity: 1; animation: none; }
 }
 
+/* ---------- Showcase: live products strip ---------- */
+.showcase {
+  /* fixed dark stage in both themes — the products are dark-UI */
+  --sc-bg: #0B0C11;
+  --sc-ink: #F2F2F6;
+  --sc-ink-2: #A2A5B3;
+  --sc-ink-3: #6C6F7E;
+  --sc-line: #23242E;
+  --sc-accent: #8493FF;
+  position: relative;
+  overflow: hidden;
+  padding-block: var(--space-section);
+  background:
+    radial-gradient(90% 55% at 50% 0%, rgba(87, 108, 255, 0.09), transparent 68%),
+    repeating-linear-gradient(to right, rgba(255,255,255,0.022) 0 1px, transparent 1px 88px),
+    repeating-linear-gradient(to bottom, rgba(255,255,255,0.016) 0 1px, transparent 1px 88px),
+    var(--sc-bg);
+  border-block: 1px solid var(--line);
+}
+
+.showcase-head { position: relative; z-index: 2; }
+.showcase-head .eyebrow { color: var(--sc-ink-3); }
+.showcase-head h2 {
+  font-family: var(--font-display);
+  font-weight: 420;
+  font-size: var(--text-2xl);
+  letter-spacing: -0.015em;
+  color: var(--sc-ink);
+  max-width: 14em;
+}
+.showcase-head h2 em { font-style: italic; color: var(--sc-accent); }
+.showcase-sub {
+  margin-top: 1.25rem;
+  color: var(--sc-ink-2);
+  font-size: var(--text-md);
+  line-height: 1.6;
+  max-width: 36em;
+}
+
+.showcase-links { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 1.75rem; }
+.live-chip {
+  display: inline-flex; align-items: center; gap: 0.55rem;
+  font-family: var(--font-mono);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  color: #C9CBD8;
+  text-decoration: none;
+  padding: 0.55rem 1rem;
+  border: 1px solid var(--sc-line);
+  border-radius: 999px;
+  background: rgba(255,255,255,0.02);
+  transition: border-color 220ms ease, color 220ms ease, transform 240ms var(--ease-spring);
+}
+.live-chip:hover { border-color: var(--sc-accent); color: var(--sc-ink); transform: translateY(-2px); }
+.live-chip .dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #2BB673;
+  box-shadow: 0 0 0 3px rgba(43, 182, 115, 0.18);
+}
+.live-chip .ext { color: var(--sc-ink-3); }
+
+/* the strip: an oversized tilted film of real screens, bleeding both edges */
+.showcase-stage { margin-top: clamp(3.5rem, 7vw, 5.5rem); position: relative; z-index: 1; }
+.strip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: clamp(1rem, 2.6vw, 2.25rem);
+  width: max-content;
+  margin-inline: auto;
+  transform: translateX(var(--px, 0px)) rotate(-3deg);
+  transition: transform 200ms linear;
+}
+@media (prefers-reduced-motion: reduce) { .strip { transition: none; } }
+.tile {
+  position: relative;
+  flex: none;
+  transform: translateY(calc(var(--lift, 0px) + var(--py, 0px)));
+  transition: transform 200ms linear;
+}
+@media (prefers-reduced-motion: reduce) { .tile { transition: none; } }
+.tile-frame {
+  display: block;
+  overflow: hidden;
+  background: #14151D;
+  border: 1px solid #262834;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5), 0 24px 60px rgba(0,0,0,0.55);
+  transition: transform 320ms var(--ease-out), border-color 240ms ease;
+}
+a.tile-frame:hover { transform: scale(1.02); border-color: #3A3D4E; }
+.tile img { width: 100%; height: auto; display: block; }
+
+.tile-phone { width: clamp(128px, 16vw, 236px); }
+.tile-phone .tile-frame { border-radius: clamp(20px, 2.4vw, 34px); padding: clamp(4px, 0.5vw, 7px); background: #191A23; }
+.tile-phone img { border-radius: clamp(15px, 1.9vw, 27px); }
+
+.tile-browser { width: clamp(240px, 32vw, 470px); }
+.tile-browser .tile-frame { border-radius: 12px; }
+.tile-browser .bar {
+  display: flex; align-items: center; gap: 5px;
+  padding: 9px 12px;
+  background: #101118;
+  border-bottom: 1px solid #20212B;
+}
+.tile-browser .bar i { width: 8px; height: 8px; border-radius: 50%; background: #2A2C38; }
+.tile-browser .bar .url {
+  margin-inline: auto;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.04em;
+  color: #6C6F7D;
+}
+
+/* redline spec tag — same voice as blueprint mode */
+.tile-tag {
+  position: absolute;
+  top: -0.72rem;
+  left: 1rem;
+  z-index: 3;
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  letter-spacing: 0.05em;
+  color: #0B0C11;
+  background: var(--redline);
+  padding: 0.14rem 0.45rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+@media (max-width: 720px) {
+  .strip { gap: 0.9rem; }
+  .tile-hide-m { display: none; }
+  .tile-phone { width: clamp(140px, 38vw, 170px); }
+  .tile-browser { width: clamp(250px, 70vw, 300px); }
+  .tile-tag { left: 0.7rem; font-size: 0.55rem; }
+}
+
 /* ---------- Sections ---------- */
 .section { padding-block: var(--space-section); }
 .section + .section { padding-top: 0; }

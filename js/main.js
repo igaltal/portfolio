@@ -91,6 +91,33 @@
     reveals.forEach((el) => io.observe(el));
   }
 
+  /* ---------- Showcase strip parallax ---------- */
+  const strip = document.querySelector("[data-strip]");
+  const noMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+  if (strip && !noMotion.matches) {
+    const tiles = strip.querySelectorAll(".tile[data-speed]");
+    let ticking = false;
+    const update = () => {
+      ticking = false;
+      const r = strip.getBoundingClientRect();
+      if (r.bottom < 0 || r.top > window.innerHeight) return;
+      // -1 when the strip enters from the bottom, +1 as it leaves at the top
+      const p = Math.max(-1, Math.min(1, (window.innerHeight / 2 - (r.top + r.height / 2)) / (window.innerHeight / 2 + r.height / 2)));
+      tiles.forEach((t) => {
+        t.style.setProperty("--py", (p * 44 * Number(t.dataset.speed)).toFixed(1) + "px");
+      });
+      // pan the film sideways as it crosses the viewport; stronger on narrow screens
+      const pan = window.innerWidth < 720 ? 120 : 50;
+      strip.querySelector(".strip").style.setProperty("--px", (-p * pan).toFixed(1) + "px");
+    };
+    const onScroll = () => {
+      if (!ticking) { ticking = true; requestAnimationFrame(update); }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll, { passive: true });
+    update();
+  }
+
   /* ---------- Project filters ---------- */
   const filterBtns = document.querySelectorAll(".filter");
   const cards = document.querySelectorAll(".work-grid .card");
