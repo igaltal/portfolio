@@ -86,6 +86,7 @@ html, body { overflow-x: clip; }
 
 body {
   margin: 0;
+  -webkit-tap-highlight-color: transparent;
   background: var(--bg);
   color: var(--ink);
   font-family: var(--font-body);
@@ -171,6 +172,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 }
 .nav-inner {
   pointer-events: auto;
+  position: relative;
   max-width: var(--container);
   margin-inline: auto;
   padding: 0.85rem var(--gutter);
@@ -239,8 +241,48 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 [data-theme="dark"] .icon-btn .moon { display: block; }
 [data-theme="dark"] .icon-btn .sun { display: none; }
 
+/* ---------- Mobile menu ---------- */
+.menu-btn { display: none; }
+.menu-btn .ic-close { display: none; }
+.nav.menu-open .menu-btn .ic-close { display: block; }
+.nav.menu-open .menu-btn .ic-open { display: none; }
+
 @media (max-width: 640px) {
-  .nav-links { display: none; }
+  .menu-btn { display: grid; }
+
+  .nav-links {
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0.75rem;
+    right: 0.75rem;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.15rem;
+    padding: 0.5rem;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lift);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    pointer-events: none;
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out),
+                visibility 0s linear 220ms;
+  }
+  .nav.menu-open .nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    transition: opacity 220ms var(--ease-out), transform 220ms var(--ease-out);
+  }
+  .nav-links a {
+    display: block;
+    font-size: var(--text-base);
+    padding: 0.85rem 1rem;
+    border-radius: var(--radius-sm);
+  }
 }
 
 /* ---------- Buttons ---------- */
@@ -262,6 +304,21 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .btn:active { transform: translateY(0) scale(0.98); }
 .btn svg { width: 0.95rem; height: 0.95rem; transition: transform 240ms var(--ease-out); }
 .btn:hover svg { transform: translateX(3px); }
+
+/* touch ergonomics: bigger targets, press feedback instead of hover */
+@media (pointer: coarse) {
+  .icon-btn { width: 2.6rem; height: 2.6rem; }
+  .btn { padding: 0.95rem 1.5rem; }
+  .filter { padding: 0.6rem 1.05rem; }
+  .btn:hover, .socials a:hover { transform: none; }
+  .card:active { transform: scale(0.99); }
+  .filter:active, .socials a:active { transform: scale(0.95); }
+}
+
+@media (max-width: 480px) {
+  .hero-ctas, .contact-ctas { flex-direction: column; align-items: stretch; }
+  .hero-ctas .btn, .contact-ctas .btn { justify-content: center; text-align: center; }
+}
 
 .btn-primary { background: var(--ink); color: var(--bg); }
 .btn-primary:hover { box-shadow: var(--shadow-lift); }
@@ -500,6 +557,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .card:hover .card-visual > * { transform: translateY(-4px) scale(1.015); }
 
 .card-body { padding: 1.6rem 1.75rem 1.75rem; display: flex; flex-direction: column; gap: 0.6rem; flex: 1; }
+@media (max-width: 640px) { .card-body { padding: 1.25rem 1.25rem 1.4rem; } }
 .card-meta {
   display: flex; flex-wrap: wrap; gap: 0.4rem 1rem;
   font-family: var(--font-mono);

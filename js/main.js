@@ -51,6 +51,29 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  /* ---------- Mobile menu ---------- */
+  const menuBtn = document.querySelector("[data-menu-toggle]");
+  if (nav && menuBtn) {
+    const setMenu = (open) => {
+      nav.classList.toggle("menu-open", open);
+      menuBtn.setAttribute("aria-expanded", String(open));
+      menuBtn.setAttribute("aria-label", open ? "Close menu" : "Open menu");
+    };
+    menuBtn.addEventListener("click", () => setMenu(!nav.classList.contains("menu-open")));
+    nav.querySelectorAll(".nav-links a").forEach((a) =>
+      a.addEventListener("click", () => setMenu(false))
+    );
+    document.addEventListener("click", (e) => {
+      if (nav.classList.contains("menu-open") && !nav.contains(e.target)) setMenu(false);
+    });
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape") setMenu(false);
+    });
+    window.matchMedia("(min-width: 641px)").addEventListener("change", (e) => {
+      if (e.matches) setMenu(false);
+    });
+  }
+
   /* ---------- Reveal on scroll ---------- */
   const reveals = document.querySelectorAll(".reveal");
   if (reveals.length) {
@@ -103,6 +126,7 @@
     window.addEventListener("scroll", onScroll, { passive: true });
   }
 
+  const toc = document.querySelector(".toc");
   const tocLinks = document.querySelectorAll(".toc a");
   if (tocLinks.length) {
     const map = new Map();
@@ -110,12 +134,21 @@
       const sec = document.querySelector(a.getAttribute("href"));
       if (sec) map.set(sec, a);
     });
+    // on mobile the TOC is a horizontal chip bar: keep the active chip in view
+    const followActive = (a) => {
+      if (toc.scrollWidth <= toc.clientWidth + 1) return;
+      toc.scrollTo({ left: a.offsetLeft - 20, behavior: "smooth" });
+    };
     const spy = new IntersectionObserver(
       (entries) => {
         entries.forEach((e) => {
           if (e.isIntersecting) {
             tocLinks.forEach((a) => a.classList.remove("active"));
-            map.get(e.target)?.classList.add("active");
+            const a = map.get(e.target);
+            if (a) {
+              a.classList.add("active");
+              followActive(a);
+            }
           }
         });
       },

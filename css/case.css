@@ -70,7 +70,40 @@
   scrollbar-width: none;
 }
 .toc::-webkit-scrollbar { display: none; }
-@media (max-width: 960px) { .toc { display: none; } }
+
+/* mobile: the TOC becomes a sticky horizontal chip bar under the nav */
+@media (max-width: 960px) {
+  html { scroll-padding-top: 8rem; }
+  .toc {
+    position: sticky;
+    top: 3.9rem;
+    z-index: 80;
+    max-height: none;
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.6rem 0;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    background: color-mix(in srgb, var(--bg) 88%, transparent);
+    -webkit-backdrop-filter: blur(14px) saturate(1.3);
+    backdrop-filter: blur(14px) saturate(1.3);
+    border-bottom: 1px solid var(--line-soft);
+  }
+  .toc ol { display: flex; gap: 0.35rem; width: max-content; }
+  .toc a {
+    border-left: 0;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 0.5rem 0.85rem;
+    white-space: nowrap;
+    background: var(--surface);
+  }
+  .toc a .n { display: none; }
+  .toc a.active {
+    border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+    background: color-mix(in srgb, var(--accent) 8%, var(--surface));
+  }
+}
 .toc ol { list-style: none; margin: 0; padding: 0; }
 .toc li { margin: 0; }
 .toc a {
@@ -722,6 +755,8 @@ table.data td:first-child { color: var(--ink); font-weight: 500; }
   padding: 0.05rem 0.45rem;
   font-size: 0.65rem;
 }
+/* the arrow-keys hint means nothing on a touch screen */
+@media (pointer: coarse) { .proto-hint { display: none; } }
 .tappable { cursor: pointer; position: relative; }
 .tappable::after {
   content: "";
