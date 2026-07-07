@@ -40,12 +40,25 @@
     .r-skills b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 0.25rem; }
     .print-bar { display: flex; gap: 0.75rem; margin-top: 2.5rem; }
     @media print {
+      @page { size: A4; margin: 8mm 11mm; }
+      /* everything is sized in rem, so shrinking the root compresses the whole page */
+      html { font-size: 9.8px; }
       .nav, .print-bar, .footer { display: none !important; }
       .resume { padding: 0; max-width: none; }
-      body { background: #fff; color: #111; font-size: 12px; }
+      body { background: #fff; color: #111; line-height: 1.4; }
       :root { --ink: #111; --ink-2: #444; --ink-3: #777; --line: #ddd; --line-soft: #eee; --accent: #2B3FE4; --bg: #fff; }
       a { text-decoration: none; }
-      .r-section { margin-top: 1.5rem; }
+      .resume h1 { font-size: 2.1rem; }
+      .resume-head { padding-bottom: 0.8rem; }
+      .resume-contact { line-height: 1.55; }
+      .r-section { margin-top: 0.9rem; }
+      .r-section > h2 { margin-bottom: 0.45rem; }
+      .r-item { padding: 0.45rem 0; grid-template-columns: 7.5rem 1fr; gap: 1rem; page-break-inside: avoid; }
+      .r-item .org { margin: 0.05rem 0 0.25rem; }
+      li { margin-bottom: 0.15em; }
+      .r-skills { gap: 0.5rem 1.5rem; }
+      /* internal case-study links are meaningless on paper */
+      .no-print { display: none; }
     }
   </style>
 </head>
@@ -133,7 +146,7 @@
         <div class="when">2025 - now</div>
         <div>
           <h3>Relay</h3>
-          <p class="org">A mobile-first AI engineering command center. Live at <a href="https://relay-code.com" target="_blank" rel="noopener">relay-code.com</a> · <a href="work/relay.html">Case study →</a></p>
+          <p class="org">A mobile-first AI engineering command center. Live at <a href="https://relay-code.com" target="_blank" rel="noopener">relay-code.com</a> <span class="no-print">· <a href="work/relay.html">Case study →</a></span></p>
           <ul>
             <li>An AI agent with real codebase access, a file browser with tap-to-select → Ask AI, a cloud terminal, live preview, and one-tap agent skills, all phone-native.</li>
             <li>Next.js 14, React, TypeScript, Tailwind with design tokens.</li>
@@ -144,7 +157,7 @@
         <div class="when">2025</div>
         <div>
           <h3>SwipeHire</h3>
-          <p class="org">Tinder-style job discovery powered by an AI career agent. Live at <a href="https://swipehire.best" target="_blank" rel="noopener">swipehire.best</a> · <a href="work/swipehire.html">Case study →</a></p>
+          <p class="org">Tinder-style job discovery powered by an AI career agent. Live at <a href="https://swipehire.best" target="_blank" rel="noopener">swipehire.best</a> <span class="no-print">· <a href="work/swipehire.html">Case study →</a></span></p>
           <ul>
             <li>A physics-based 4-direction swipe deck (Framer Motion); the agent writes every application and the user approves every send.</li>
             <li>Next.js 15, React 19, TypeScript, Tailwind, Zustand. RTL-ready and accessible.</li>
@@ -155,7 +168,7 @@
         <div class="when">2024 - 2025</div>
         <div>
           <h3>BEAM-CTRL</h3>
-          <p class="org">A browser-based DMX stage-lighting console with real hardware support. Live at <a href="https://beam-ctrl.com" target="_blank" rel="noopener">beam-ctrl.com</a> · <a href="work/beamctrl.html">Case study →</a></p>
+          <p class="org">A browser-based DMX stage-lighting console with real hardware support. Live at <a href="https://beam-ctrl.com" target="_blank" rel="noopener">beam-ctrl.com</a> <span class="no-print">· <a href="work/beamctrl.html">Case study →</a></span></p>
           <ul>
             <li>Three surfaces (desktop console, phone remote, tablet) on one real-time WebSocket protocol; an Electron app bridges physical USB-DMX hardware.</li>
             <li>Centralized state for concurrent multi-fixture effects, BPM sync and auto-movement, and a Three.js rig visualizer.</li>
