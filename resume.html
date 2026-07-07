@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Resume | Igal Talmerom</title>
-  <meta name="description" content="Resume of Igal Talmerom, Product Designer and Software Engineer." />
+  <title>Resume | Igal Tal Merom</title>
+  <meta name="description" content="Resume of Igal Tal Merom, Software Engineer and Product Designer." />
   <script>
     (function () {
       var t = localStorage.getItem("theme");
@@ -34,6 +34,7 @@
     .r-item h3 { font-size: var(--text-base); font-weight: 600; }
     .r-item .org { color: var(--ink-2); font-size: var(--text-sm); margin: 0.15rem 0 0.5rem; }
     .r-item ul { margin: 0; padding-left: 1.1em; color: var(--ink-2); font-size: var(--text-sm); }
+    .r-item a { color: var(--accent); text-decoration: none; }
     .r-skills { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem 2rem; font-size: var(--text-sm); color: var(--ink-2); }
     @media (max-width: 560px) { .r-skills { grid-template-columns: 1fr; } }
     .r-skills b { display: block; color: var(--ink); font-weight: 600; margin-bottom: 0.25rem; }
@@ -51,7 +52,7 @@
 <body>
   <header class="nav" aria-label="Primary">
     <div class="nav-inner">
-      <a class="brand" href="index.html"><span class="mark">IT</span> Igal Talmerom</a>
+      <a class="brand" href="index.html"><span class="mark">IT</span> Igal Tal Merom</a>
       <nav>
         <ul class="nav-links">
           <li><a href="index.html#work">Work</a></li>
@@ -72,11 +73,12 @@
   <main class="resume">
     <div class="resume-head">
       <div>
-        <h1>Igal Talmerom</h1>
-        <p class="tagline">Product Designer &amp; Software Engineer. I own products from idea to production.</p>
+        <h1>Igal Tal Merom</h1>
+        <p class="tagline">Software Engineer · Product &amp; AI. I design products and build them, end to end.</p>
       </div>
       <div class="resume-contact">
-        <a href="mailto:talm13124@gmail.com">talm13124@gmail.com</a><br />
+        <a href="tel:+972522491312">+972-52-249-1312</a><br />
+        <a href="mailto:igaltalmerom@gmail.com">igaltalmerom@gmail.com</a><br />
         <a href="https://github.com/igaltal">github.com/igaltal</a><br />
         <a href="https://www.linkedin.com/in/igaltalmerom">linkedin.com/in/igaltalmerom</a>
       </div>
@@ -85,24 +87,51 @@
     <section class="r-section">
       <h2>Profile</h2>
       <p style="color: var(--ink-2); font-size: var(--text-sm); max-width: 40em;">
-        Designer and engineer in one person, with end-to-end ownership of shipped products: user
-        research, product strategy, UX/UI, design systems, and the production frontend code that
-        delivers them. Focused on AI products and mobile-first experiences. I close the gap where
-        product quality usually gets lost: between the design file and the shipped feature.
+        Software engineer with hands-on experience in backend systems, real-time infrastructure,
+        AI automation, and simulation platforms, and a product side to match: formal training in
+        product management, UX design, and entrepreneurship, plus a track record of shipped
+        side-products built end to end, from research and design to production code. Strong
+        foundation in Python, C++, distributed systems, and system design.
       </p>
     </section>
 
     <section class="r-section">
       <h2>Experience</h2>
       <div class="r-item">
+        <div class="when">Sep 2024 - now</div>
+        <div>
+          <h3>Software Developer · Voltify</h3>
+          <p class="org">Real-time industrial energy systems · Ramat Gan, Israel</p>
+          <ul>
+            <li>Developed and maintained simulation platforms that validate hardware behavior, communication protocols, and failure recovery before deployment.</li>
+            <li>Built asynchronous backend services and communication layers in Python and C++ (Modbus TCP, Redis Pub/Sub, TCP/IP), including multi-threaded services for real-time monitoring and device communication.</li>
+            <li>Worked with engineering, operations, and business stakeholders to define requirements and shape internal tools and workflows.</li>
+            <li>Designed HMI dashboards, product visualizations, and UI concepts in Figma and Canva for demos, recruiting, and marketing; contributed to AI-driven automation and employer branding.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-item">
+        <div class="when">Dec 2021 - Aug 2022</div>
+        <div>
+          <h3>Assistant to General Manager · Consulate General of Israel</h3>
+          <p class="org">New York, USA</p>
+          <ul>
+            <li>Coordinated operations and logistics for high-profile diplomatic and public events.</li>
+            <li>Managed communication between stakeholders and streamlined recurring processes, cutting preparation time significantly.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="r-section">
+      <h2>Shipped products · designed &amp; built solo</h2>
+      <div class="r-item">
         <div class="when">2025 - now</div>
         <div>
-          <h3>Relay · Founder, Designer &amp; Engineer</h3>
-          <p class="org">A mobile-first AI engineering command center. Live in production on Vercel.</p>
+          <h3>Relay</h3>
+          <p class="org">A mobile-first AI engineering command center. Live at <a href="https://relay-code.com" target="_blank" rel="noopener">relay-code.com</a> · <a href="work/relay.html">Case study →</a></p>
           <ul>
-            <li>Designed and built the full product solo: an AI agent with real codebase access, a file browser with tap-to-select → Ask AI, a cloud terminal (xterm.js), live preview, and one-tap agent skills.</li>
-            <li>Shipped end to end: auth (OAuth, email verify), hub dashboard, streaming chat with visible tool calls, projects and repo management, billing, settings, activity profile.</li>
-            <li>Solved the core mobile UX problems: repo context always visible, agent streams that survive tab switches, and code that is readable and selectable at 390px.</li>
+            <li>An AI agent with real codebase access, a file browser with tap-to-select → Ask AI, a cloud terminal, live preview, and one-tap agent skills, all phone-native.</li>
             <li>Next.js 14, React, TypeScript, Tailwind with design tokens.</li>
           </ul>
         </div>
@@ -110,25 +139,56 @@
       <div class="r-item">
         <div class="when">2025</div>
         <div>
-          <h3>SwipeHire · Designer &amp; Engineer</h3>
-          <p class="org">Tinder-style job discovery powered by an AI career agent. Live in production.</p>
+          <h3>SwipeHire</h3>
+          <p class="org">Tinder-style job discovery powered by an AI career agent. Live at <a href="https://swipehire.best" target="_blank" rel="noopener">swipehire.best</a> · <a href="work/swipehire.html">Case study →</a></p>
           <ul>
-            <li>Designed a 4-direction swipe deck with physics-based gestures (Framer Motion): elastic drag, rotation mapped to offset, decisions on distance or velocity, progressive action stamps.</li>
-            <li>Built the trust layer: the agent writes every application, the user approves every send; honest apply-type badges; matches form only on a real company reply.</li>
-            <li>Built a full design system: semantic action colors, glass surfaces, three motion presets. RTL-ready and accessible from the ground up.</li>
-            <li>Next.js 15, React 19, TypeScript, Tailwind, Zustand.</li>
+            <li>A physics-based 4-direction swipe deck (Framer Motion); the agent writes every application and the user approves every send.</li>
+            <li>Next.js 15, React 19, TypeScript, Tailwind, Zustand. RTL-ready and accessible.</li>
           </ul>
         </div>
       </div>
       <div class="r-item">
         <div class="when">2024 - 2025</div>
         <div>
-          <h3>BEAM-CTRL · Designer &amp; Engineer</h3>
-          <p class="org">A browser-based DMX lighting control console with real hardware support. Live, free during beta.</p>
+          <h3>BEAM-CTRL</h3>
+          <p class="org">A browser-based DMX stage-lighting console with real hardware support. Live at <a href="https://beam-ctrl.com" target="_blank" rel="noopener">beam-ctrl.com</a> · <a href="work/beamctrl.html">Case study →</a></p>
           <ul>
-            <li>Designed and built a full lighting console in the browser: control, programming (Daslight-style), live performance, cues, a 4-deck DJ music mode, and a Three.js rig visualizer.</li>
-            <li>Shipped three surfaces on one WebSocket protocol: desktop console, phone remote, and tablet layout, all controlling the same show in real time.</li>
-            <li>Built the Electron desktop app that bridges physical USB-DMX hardware, and the real-time optimistic UI that keeps sliders instant on stage.</li>
+            <li>Three surfaces (desktop console, phone remote, tablet) on one real-time WebSocket protocol; an Electron app bridges physical USB-DMX hardware.</li>
+            <li>Centralized state for concurrent multi-fixture effects, BPM sync and auto-movement, and a Three.js rig visualizer.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-item">
+        <div class="when">2024 - 2025</div>
+        <div>
+          <h3>Gymble · Co-Founder &amp; Product Lead</h3>
+          <p class="org">AI-powered fitness platform, built in Reichman University's Acceleration Program.</p>
+          <ul>
+            <li>Found user pain points through customer interviews, market research, and competitor analysis; defined product vision, user journeys, and MVP requirements.</li>
+            <li>Designed wireframes and product concepts; evaluated IoT sensors, BLE devices, and computer-vision approaches, and pivoted based on feedback; built the business model and go-to-market plan.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="r-section">
+      <h2>Leadership</h2>
+      <div class="r-item">
+        <div class="when">Aug 2023 - Jul 2024</div>
+        <div>
+          <h3>Academic Coordinator, CS Program · Reichman University</h3>
+          <p class="org">Herzliya, Israel</p>
+          <ul>
+            <li>Supported 600+ CS students through academic guidance, mentorship, and onboarding events; organized tech workshops and bridged between students and faculty.</li>
+          </ul>
+        </div>
+      </div>
+      <div class="r-item">
+        <div class="when">Aug 2018 - Apr 2021</div>
+        <div>
+          <h3>Combat Soldiers Instructor · Israeli Air Force</h3>
+          <ul>
+            <li>Trained and led combat soldiers; responsible for instruction quality, discipline, and team performance.</li>
           </ul>
         </div>
       </div>
@@ -137,22 +197,27 @@
     <section class="r-section">
       <h2>Skills</h2>
       <div class="r-skills">
-        <div><b>Product &amp; research</b>Discovery interviews, JTBD, journey mapping, personas, competitive analysis, success metrics &amp; instrumentation, usability testing</div>
-        <div><b>Design</b>UX architecture, interaction &amp; motion design, UI systems, design tokens, Figma (variables, auto-layout, prototyping), accessibility (WCAG AA)</div>
-        <div><b>Engineering</b>TypeScript, React / Next.js, React Native, Tailwind, Framer Motion, Node.js, CI/CD, testing</div>
-        <div><b>AI products</b>Agentic UX patterns, LLM integration (Anthropic/OpenAI APIs), prompt design, evaluation workflows, trust &amp; safety affordances</div>
+        <div><b>Programming</b>Python, C++, C, C#, Java, SQL, TypeScript / JavaScript</div>
+        <div><b>Backend &amp; real-time</b>Docker, Linux, Redis, Flask, REST APIs, AsyncIO, WebSocket, Modbus TCP, TCP/IP, RS-485, Pytest, Git</div>
+        <div><b>AI &amp; automation</b>OpenAI &amp; Anthropic APIs, AI agents, prompt engineering, Make, Zapier</div>
+        <div><b>Product &amp; design</b>Figma, wireframing, user flows, UX/UI, prototyping, design tokens, React / Next.js, Tailwind, Framer Motion</div>
       </div>
     </section>
 
     <section class="r-section">
       <h2>Education</h2>
       <div class="r-item">
-        <div class="when"></div>
+        <div class="when">2022 - 2025</div>
         <div>
-          <h3>B.Sc. Computer Science</h3>
-          <p class="org">Plus ongoing design education: typography, HCI, and interaction design courses.</p>
+          <h3>B.Sc. Computer Science &amp; Entrepreneurship · Reichman University (IDC Herzliya)</h3>
+          <p class="org">Core CS: data structures, algorithms, operating systems, networks, machine learning. Product track: product management, UX/UI design, entrepreneurship, and app development &amp; launch, as part of the university's Acceleration Program.</p>
         </div>
       </div>
+    </section>
+
+    <section class="r-section">
+      <h2>Languages</h2>
+      <p style="color: var(--ink-2); font-size: var(--text-sm);">Hebrew: native · English: fluent · Arabic: basic reading</p>
     </section>
 
     <div class="print-bar">
@@ -165,7 +230,7 @@
 
   <footer class="footer">
     <div class="container footer-inner">
-      <span>© <span data-year>2026</span> Igal Talmerom</span>
+      <span>© <span data-year>2026</span> Igal Tal Merom</span>
       <a href="index.html">← Portfolio</a>
     </div>
   </footer>
