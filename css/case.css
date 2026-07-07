@@ -202,6 +202,27 @@
 .grid-3 { display: grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 1.25rem; margin-top: 2rem; }
 @media (max-width: 780px) { .grid-3 { grid-template-columns: 1fr; } .grid-2 { grid-template-columns: 1fr; } }
 
+/* on phones, tall screenshot galleries become a swipeable strip instead of
+   a full-width stack that swallows the page */
+@media (max-width: 780px) {
+  .grid-3:has(.shot), .grid-2:has(.shot) {
+    display: flex;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x mandatory;
+    gap: 0.9rem;
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+    scrollbar-width: none;
+  }
+  .grid-3:has(.shot)::-webkit-scrollbar, .grid-2:has(.shot)::-webkit-scrollbar { display: none; }
+  .grid-3:has(.shot) > figure, .grid-2:has(.shot) > figure {
+    flex: 0 0 58vw;
+    scroll-snap-align: center;
+  }
+  .grid-2:has(.shot) > figure { flex-basis: 84vw; }
+}
+
 /* stat tiles */
 .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius-md); overflow: hidden; margin-top: 2rem; }
 @media (max-width: 720px) { .stats { grid-template-columns: repeat(2, 1fr); } }
