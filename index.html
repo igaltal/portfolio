@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light" data-blueprint="off">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Igal Talmerom | Product Designer &amp; Software Engineer</title>
+  <meta name="description" content="Product designer and software engineer. I do the research, the UX, the UI and the design system, and then I build the product myself." />
+  <script>
+    // pre-paint theme to avoid flash
+    (function () {
+      var t = localStorage.getItem("theme");
+      if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.setAttribute("data-theme", t);
+    })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Geist:wght@400..700&family=Geist+Mono:wght@400..600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%232B3FE4'/><text x='50' y='68' font-size='52' font-family='monospace' fill='white' text-anchor='middle'>IT</text></svg>" />
+</head>
+<body>
+  <a class="skip-link" href="#work">Skip to content</a>
+
+  <header class="nav" aria-label="Primary">
+    <div class="nav-inner">
+      <a class="brand" href="index.html"><span class="mark">IT</span> Igal Talmerom</a>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="#work">Work</a></li>
+          <li><a href="#about">About</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="resume.html">Resume</a></li>
+        </ul>
+      </nav>
+      <div class="nav-actions">
+        <button class="icon-btn bp-btn" data-blueprint-toggle aria-pressed="false" title="Blueprint mode: show the grid and spec labels" aria-label="Toggle blueprint mode">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 9h18M3 15h18M9 3v18M15 3v18"/></svg>
+        </button>
+        <button class="icon-btn" data-theme-toggle aria-label="Toggle theme">
+          <svg class="sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+          <svg class="moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z"/></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- ===================== HERO ===================== -->
+    <section class="hero container">
+      <p class="hero-intro stage stage-1"><span class="dot" aria-hidden="true"></span> Igal Talmerom · Product Designer × Software Engineer</p>
+      <h1 class="stage stage-2" data-bp="type/display · Newsreader 420 · clamp(44-96) / 1.02">
+        I design the product.<br />
+        <span class="redline-wrap">Then I <em>build</em> it.
+          <span class="redline-tag redline-baseline" aria-hidden="true">baseline · Newsreader 420 · -2.2% tracking</span>
+          <span class="redline-tag redline-height" aria-hidden="true">line-height 1.02</span>
+        </span>
+      </h1>
+      <p class="lede stage stage-3">
+        I'm a product designer who also writes production code. So nothing gets lost
+        between the design file and the real product. Research, UX, UI, design system,
+        frontend: I do all of it, and I'm responsible for the result.
+      </p>
+      <div class="hero-ctas stage stage-4">
+        <a class="btn btn-primary" href="#work">View selected work
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="#contact">Get in touch</a>
+      </div>
+      <div class="hero-capabilities stage stage-5" aria-label="Capabilities">
+        <span>Product thinking</span><span>UX research</span><span>UI design</span>
+        <span>Design systems</span><span>Frontend development</span><span>AI products</span>
+      </div>
+    </section>
+
+    <!-- ===================== WORK ===================== -->
+    <section class="section container" id="work">
+      <div class="section-head reveal">
+        <h2>Selected <em>work</em></h2>
+        <div class="filters" role="group" aria-label="Filter projects">
+          <button class="filter" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" data-filter="ai" aria-pressed="false">AI</button>
+          <button class="filter" data-filter="mobile" aria-pressed="false">Mobile</button>
+          <button class="filter" data-filter="systems" aria-pressed="false">Design systems</button>
+          <button class="filter" data-filter="product" aria-pressed="false">Product</button>
+        </div>
+      </div>
+
+      <div class="work-grid">
+        <!-- Relay Code · featured -->
+        <a class="card card-featured reveal" href="work/relay-code.html" data-tags="ai mobile product" data-bp="card/featured · radius 22 · border line">
+          <div class="card-visual">
+            <div class="thumb-phone" aria-hidden="true">
+              <div class="bar w60"></div>
+              <div class="chip-row"><span class="chip"></span><span class="chip"></span><span class="chip"></span></div>
+              <div class="bar w80"></div>
+              <div class="diff">
+                <i class="ctx"></i><i class="del"></i><i class="del"></i><i class="add"></i><i class="add"></i><i class="add"></i><i class="ctx"></i>
+              </div>
+              <div class="bar w60"></div>
+              <div class="approve"></div>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>Featured case study</span><span>AI · Mobile · 0→1</span><span>2025</span></div>
+            <h3>Relay Code</h3>
+            <p>A platform for working with AI coding agents from your phone. Review code changes, run tests, guide the agent, and merge pull requests from anywhere. The case study covers the full process, from the first problem to the final product.</p>
+            <span class="card-cta">Read the case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Northlight -->
+        <a class="card reveal" href="work/northlight.html" data-tags="systems product" style="--d: 80ms">
+          <div class="card-visual">
+            <div class="thumb-tokens" aria-hidden="true">
+              <i style="background: var(--accent)"></i><i style="background: var(--wash)"></i><i style="background: var(--surface)"></i><i style="background: var(--ink)"></i>
+              <i style="background: #2BB673"></i><i style="background: #C07C10"></i><i style="background: #D64545"></i><i style="background: var(--surface-2)"></i>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>Case study</span><span>Design system</span><span>2024</span></div>
+            <h3>Northlight Design System</h3>
+            <p>A design system for a fintech company. 42 components, full dark mode, and UI build time cut by 68%.</p>
+            <span class="card-cta">Read the case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+            </span>
+          </div>
+        </a>
+
+        <!-- Cadence -->
+        <a class="card reveal" href="work/cadence.html" data-tags="product mobile" style="--d: 160ms">
+          <div class="card-visual">
+            <div class="thumb-cal" aria-hidden="true"><i class="b1"></i><i class="b2"></i><i class="b3"></i></div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>Case study</span><span>Product · UX research</span><span>2024</span></div>
+            <h3>Cadence</h3>
+            <p>A calendar that protects your focus time. A research-heavy project: 14 user interviews led to a new way to plan deep work.</p>
+            <span class="card-cta">Read the case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+          </span>
+          </div>
+        </a>
+
+        <!-- NDA -->
+        <div class="card card-locked reveal" data-tags="ai product" style="--d: 240ms">
+          <div class="card-visual">
+            <div class="thumb-locked" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/></svg>
+            </div>
+          </div>
+          <div class="card-body">
+            <div class="card-meta"><span>Under NDA</span><span>AI · Enterprise</span><span>2025</span></div>
+            <h3>AI evaluation console</h3>
+            <p>Design lead for an internal AI evaluation tool at an enterprise client. I can share the process and results in a call.</p>
+            <span class="card-cta">Available on request</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ABOUT ===================== -->
+    <section class="section container" id="about">
+      <div class="about-grid">
+        <div class="about-sticky reveal">
+          <p class="eyebrow">About</p>
+          <h2>Designer and <em>engineer</em>, in one person.</h2>
+          <p class="about-body">
+            I have worked on both sides: writing the tickets and closing them.
+            <strong>I design with real production limits in mind, and I build with
+            respect for the people who will use the product.</strong>
+          </p>
+        </div>
+        <div class="reveal" style="--d: 120ms">
+          <div class="about-body">
+            <p>
+              Many product decisions get lost on the way. A researcher learns something, a designer
+              draws it, an engineer builds something a bit different, and the user gets the sum of
+              all those small errors. I remove that chain. When I run the interviews, draw the flows,
+              define the tokens, and write the components, the original idea is still there when the
+              product ships.
+            </p>
+            <p>
+              I also work a lot with AI: I design AI products, and I use AI tools to build prototypes
+              fast. But the rule I follow is simple: tools suggest, people decide. That rule shows up
+              in my products too.
+            </p>
+          </div>
+          <ul class="principles">
+            <li>
+              <span class="k">Problem before pixels</span>
+              <p>I don't open a design tool before I can explain the user's problem, the business goal, and the number we want to move. A weak problem statement always leads to a weak interface.</p>
+            </li>
+            <li>
+              <span class="k">Systems over screens</span>
+              <p>One screen solves one case. A system solves all the next ones too. I start with tokens, components, and rules, so every new screen is faster to build and stays consistent.</p>
+            </li>
+            <li>
+              <span class="k">Prototype in code</span>
+              <p>Static mockups always look good. Working prototypes show the truth. I test with real data, real loading times, and real thumbs on real phones, because that is where designs fail.</p>
+            </li>
+            <li>
+              <span class="k">Psychology matters</span>
+              <p>Trust, fear, habit, mental load. These are design materials. Every button I ship is a decision about how a person will feel at that moment.</p>
+            </li>
+            <li>
+              <span class="k">Business is a user too</span>
+              <p>Good UX that doesn't help activation, retention, or revenue is a hobby. I define success metrics on day one and check them after launch.</p>
+            </li>
+          </ul>
+          <div class="stack-note" data-bp="component/stack-note · surface · radius 14">
+            <b>Toolchain:</b> Figma · design tokens · TypeScript · React / Next.js ·
+            SwiftUI prototyping · Framer Motion · Tailwind · Node · Anthropic &amp; OpenAI APIs ·
+            prompt design · Git, CI, and all the boring parts of shipping.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section class="contact container" id="contact">
+      <p class="eyebrow reveal" style="justify-content: center">Contact</p>
+      <h2 class="reveal">Need someone who can own a product <em>from start to finish?</em></h2>
+      <p class="lede reveal" style="--d: 100ms">
+        I'm open to senior product design roles and design-engineer roles.
+        Email is the fastest way to reach me. I answer within a day.
+      </p>
+      <div class="contact-ctas reveal" style="--d: 180ms">
+        <a class="btn btn-accent" href="mailto:talm13124@gmail.com">talm13124@gmail.com
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14m-6-6 6 6-6 6"/></svg>
+        </a>
+        <a class="btn btn-ghost" href="resume.html">Download resume</a>
+      </div>
+      <div class="socials reveal" style="--d: 260ms">
+        <a href="https://github.com/igaltal" aria-label="GitHub" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.63.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.85.09-.66.35-1.12.63-1.37-2.22-.26-4.56-1.14-4.56-5.07 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.36 9.36 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.94-2.34 4.8-4.57 5.06.36.32.68.94.68 1.9v2.81c0 .27.18.6.69.49A10.05 10.05 0 0 0 22 12.25C22 6.58 17.52 2 12 2Z"/></svg>
+        </a>
+        <a href="https://www.linkedin.com/in/igaltalmerom" aria-label="LinkedIn" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.86 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.47-.9 1.63-1.85 3.36-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/></svg>
+        </a>
+        <a href="mailto:talm13124@gmail.com" aria-label="Email">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span data-year>2026</span> Igal Talmerom</span>
+      <span class="colophon">Designed and built by hand. Try blueprint mode ▦ in the nav.</span>
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;">Back to top ↑</a>
+    </div>
+  </footer>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
