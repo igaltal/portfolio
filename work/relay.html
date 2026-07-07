@@ -109,19 +109,23 @@
             </div>
             <div class="prose reveal">
               <p>
-                Relay connects to a GitHub repository and gives you everything you need to work on
-                it from a phone: an AI agent that can actually read and change the codebase, a full
-                file browser with syntax highlighting, a live cloud terminal, an app preview, and
-                one-tap "skills" (preset agent workflows like Explore, Review, Debug).
+                An AI agent with real codebase access, a file browser, a cloud terminal, and
+                one-tap skills. For developers away from their desk but not away from their work.
               </p>
-              <p>
-                <strong>Who it's for:</strong> developers who are away from their machine but not
-                away from their work. Commuting, on a call, between meetings, or just on the couch.
-              </p>
-              <p>
-                <strong>The bet:</strong> serious engineering work can happen on mobile, if you
-                design for thumbs, context, and interruption, instead of shrinking a desktop tool.
-              </p>
+            </div>
+            <div class="grid-3">
+              <figure class="figure reveal" style="margin-top:0">
+                <div class="shot"><img src="../assets/shots/relay-app-hub.webp" alt="Relay Hub: quick agents and the active project" width="640" height="1093" loading="lazy" decoding="async" /></div>
+                <figcaption>Hub · live app</figcaption>
+              </figure>
+              <figure class="figure reveal" style="margin-top:0; --d: 80ms">
+                <div class="shot"><img src="../assets/shots/relay-app-agent.webp" alt="Relay agent chat explaining a fix, with file references" width="640" height="1105" loading="lazy" decoding="async" /></div>
+                <figcaption>Agent · live app</figcaption>
+              </figure>
+              <figure class="figure reveal" style="margin-top:0; --d: 160ms">
+                <div class="shot"><img src="../assets/shots/relay-app-terminal.webp" alt="Relay cloud terminal connected to a sandbox" width="640" height="1093" loading="lazy" decoding="async" /></div>
+                <figcaption>Terminal · live app</figcaption>
+              </figure>
             </div>
           </section>
 
@@ -132,20 +136,11 @@
               <h2>Developer tools assume you're at a desk.</h2>
             </div>
             <div class="prose reveal">
-              <h3>User pain</h3>
               <p>
-                When you're away from your machine, you can't easily inspect code, run an agent, or
-                unblock a teammate. A bug report arrives, a question comes up in review, an idea hits
-                you on the train, and the only real answer is "when I'm back at my laptop". The work
-                doesn't wait, but the tools do.
+                Away from your machine, you can read a bug report but you can't act on it.
+                AI agents made the work phone-sized: directing and checking, not typing.
+                No tool offered that in a phone-native way.
               </p>
-              <h3>Why this got urgent now</h3>
-              <p>
-                AI agents changed the shape of the work. A lot of engineering is now directing and
-                checking an agent, not typing every line. That kind of work fits a phone much better
-                than writing code does. But no tool offered it in a phone-native way.
-              </p>
-              <h3>Existing options, and why they are not enough</h3>
             </div>
             <div class="table-wrap reveal">
               <table class="data">
@@ -168,7 +163,7 @@
             <div class="cs-head reveal">
               <span class="num">03 · Goals</span>
               <h2>Mobile-first, without dumbing it down.</h2>
-              <p class="cs-sub">The product vision in one line: <em>"Fix bugs from your phone."</em> These are the design principles I set at the start, and how each one shows up in the shipped product.</p>
+              <p class="cs-sub">One line: <em>"Fix bugs from your phone."</em></p>
             </div>
             <div class="table-wrap reveal">
               <table class="data">
@@ -184,9 +179,7 @@
             </div>
             <div class="prose reveal" style="margin-top: 2rem">
               <p>
-                <strong>Non-goals:</strong> Relay is not a code editor on a phone (typing large amounts
-                of code on glass is a losing game), and not a Git client. It is a command center:
-                you read, direct, check, and decide.
+                <strong>Non-goals:</strong> not a code editor, not a Git client. A command center.
               </p>
             </div>
           </section>
@@ -196,24 +189,24 @@
             <div class="cs-head reveal">
               <span class="num">04 · Research</span>
               <h2>Living the problem, then studying it.</h2>
-              <p class="cs-sub">This started from my own pain as a developer who is often away from the desk. I backed it up with teardowns of GitHub Mobile, the ChatGPT and Claude apps, Termius, and Replit's mobile app, and with conversations with developer friends about when and how they use their phones for work.</p>
+              <p class="cs-sub">My own pain, competitor teardowns, and conversations with developers.</p>
             </div>
             <div class="insights">
               <div class="insight reveal">
                 <div><h4>Phone sessions are short and interrupted</h4>
-                <p>Nobody sits down for an hour of phone work. Sessions are a few minutes, and they get cut by notifications, stops, and real life. The design must survive interruption: nothing important can be lost when you switch apps or tabs.</p></div>
+                <p>Minutes, not hours. Nothing important can be lost when you switch apps.</p></div>
               </div>
               <div class="insight reveal" style="--d: 60ms">
                 <div><h4>Context is the first thing you lose on mobile</h4>
-                <p>On a desktop you have windows and tabs to remind you where you are. On a phone you have one small screen. If the repo, branch, and project are not always visible, users act on the wrong thing or stop acting at all.</p></div>
+                <p>Repo, branch, and project must always be visible, or users act on the wrong thing.</p></div>
               </div>
               <div class="insight reveal" style="--d: 120ms">
                 <div><h4>Typing is the enemy, choosing is fine</h4>
-                <p>Long prompts on a phone keyboard kill the flow. But tapping a preset, picking a suggestion chip, or selecting lines of code is easy. Everything important in Relay can start with a tap, not a paragraph.</p></div>
+                <p>Everything important starts with a tap, not a paragraph.</p></div>
               </div>
               <div class="insight reveal" style="--d: 180ms">
                 <div><h4>Reading code on a phone is fine, if you design for it</h4>
-                <p>Syntax highlighting, line numbers, horizontal code scroll inside a fixed frame, and tap-to-select lines make code readable at 390px. What breaks is desktop chrome around the code, not the code itself.</p></div>
+                <p>Highlighting, line numbers, and tap-to-select make 390px enough.</p></div>
               </div>
             </div>
           </section>
@@ -346,14 +339,7 @@
                 </div>
               </div>
             </div>
-            <div class="prose reveal" style="margin-top: 2rem">
-              <p>
-                <strong>Mobile nav (5 tabs):</strong> Hub · Agent · Code · Skills · Settings.
-                <strong> Desktop:</strong> a persistent sidebar with the same destinations and a wider
-                split-pane code view. Authenticated users skip the landing page and go straight to
-                the Hub.
-              </p>
-            </div>
+
           </section>
 
           <!-- ============ 08 USER FLOW ============ -->
@@ -418,11 +404,10 @@
               </svg>
             </div>
             <div class="prose reveal" style="margin-top: 2rem">
-              <p><strong>Decisions I would defend:</strong></p>
               <ul>
-                <li><strong>Presets before prompts.</strong> Hub quick agents map straight to agent prompts, so the flow starts with a tap. Writing a prompt is always possible, never required.</li>
-                <li><strong>Verify without leaving.</strong> Terminal and Preview are tabs of the same workspace, and the chat stays mounted behind them. Checking the fix never costs you the conversation.</li>
-                <li><strong>Sessions are permanent.</strong> After the first message the URL becomes <span class="mono">/chat/{sessionId}</span>. Interruption is expected; loss is not allowed.</li>
+                <li><strong>Presets before prompts.</strong> The flow starts with a tap.</li>
+                <li><strong>Verify without leaving.</strong> Terminal and preview are tabs; the chat stays mounted.</li>
+                <li><strong>Sessions are permanent.</strong> Interruption is expected; loss is not allowed.</li>
               </ul>
             </div>
           </section>
@@ -446,7 +431,7 @@
                   <rect class="wf-cta" x="16" y="208" width="88" height="16" rx="8"/>
                 </svg>
                 <div class="wire-label">Study 1: chat is home</div>
-                <p class="wire-note">Open the app, land in a chat. Fast for one thing, blind for everything else: no way to see projects, files, or what you can do. <strong>Dropped:</strong> a chat box is not a command center.</p>
+                <p class="wire-note"><strong>Dropped.</strong> A chat box is not a command center.</p>
               </div>
               <div class="wire reveal" style="--d: 80ms">
                 <svg viewBox="0 0 120 240" role="img" aria-label="Wireframe: hub dashboard with quick actions">
@@ -462,7 +447,7 @@
                   <rect class="wf-box" x="16" y="204" width="88" height="18" rx="6"/>
                 </svg>
                 <div class="wire-label">Study 2: hub with quick agents</div>
-                <p class="wire-note">A dashboard: New Agent on top, active project card, a grid of preset workflows, recent sessions. Answers "what can I do right now?" at a glance. <strong>Kept.</strong></p>
+                <p class="wire-note"><strong>Kept.</strong> Answers "what can I do right now?" at a glance.</p>
               </div>
               <div class="wire reveal" style="--d: 160ms">
                 <svg viewBox="0 0 120 240" role="img" aria-label="Wireframe: tabbed workspace with chat, terminal and preview">
@@ -479,17 +464,10 @@
                   <rect class="wf-cta" x="16" y="208" width="88" height="16" rx="8"/>
                 </svg>
                 <div class="wire-label">Study 3: workspace shell with tabs</div>
-                <p class="wire-note">Chat, Terminal, and Preview as tabs of one shell, with the repo context bar on top. The key detail: switching tabs hides the chat but does not unmount it. <strong>Shipped.</strong></p>
+                <p class="wire-note"><strong>Shipped.</strong> One shell; switching tabs never unmounts the chat.</p>
               </div>
             </div>
-            <div class="prose reveal" style="margin-top: 2rem">
-              <p>
-                <strong>What settled it.</strong> Study 1 failed the "cold open" test: a new user sees a
-                text box and doesn't know what the product can do. Study 2 fixed discoverability, and
-                Study 3 solved the deeper problem: verification (terminal, preview) and conversation
-                (chat) are one workflow, so they must be one screen with tabs, not separate pages.
-              </p>
-            </div>
+
           </section>
 
           <!-- ============ 10 EXPLORATION ============ -->
@@ -508,8 +486,8 @@
                   <rect x="10" y="60" width="70" height="10" rx="5" fill="#3B82F6"/>
                 </svg>
                 <h4>A: "Friendly SaaS"</h4>
-                <p>Light, blue, rounded, approachable. Nice for a landing page, wrong for the job: code and terminals look foreign on it, and it glows in your face at night.</p>
-                <div class="verdict">Rejected. The product lives next to code; the surface should too.</div>
+                <p>Light, blue, approachable. Code looks foreign on it, and it glows at night.</p>
+                <div class="verdict">Rejected.</div>
               </div>
               <div class="panel concept reveal" style="--d: 80ms">
                 <svg viewBox="0 0 120 80" role="img" aria-label="Concept B: pure terminal black">
@@ -520,8 +498,8 @@
                   <rect x="10" y="62" width="46" height="9" rx="4" fill="#22c55e"/>
                 </svg>
                 <h4>B: "Pure terminal"</h4>
-                <p>Full hacker black, mono everywhere. Honest about the domain, but tiring to read, and chat bubbles and cards fight the aesthetic.</p>
-                <div class="verdict">Rejected. Too harsh as the whole world; right as one tab (the terminal itself).</div>
+                <p>Hacker black, mono everywhere. Honest, but tiring to read.</p>
+                <div class="verdict">Rejected. Right for one tab, not the whole world.</div>
               </div>
               <div class="panel concept chosen reveal" style="--d: 160ms">
                 <span class="badge">Shipped</span>
@@ -535,8 +513,8 @@
                   <rect x="10" y="62" width="60" height="10" rx="5" fill="#10B981"/>
                 </svg>
                 <h4>C: "Dark-first, emerald"</h4>
-                <p>A deep dark base with soft cards, an emerald-to-cyan accent for brand moments, and monospace reserved for code and paths. Light mode exists as a token swap.</p>
-                <div class="verdict win">Selected. Calm at night, technical without being hostile, and code blocks feel native in it.</div>
+                <p>Deep dark base, soft cards, emerald accent. Mono only for code.</p>
+                <div class="verdict win">Selected. Calm at night, technical without being hostile.</div>
               </div>
             </div>
           </section>
@@ -638,15 +616,15 @@
             <div class="device-note">
               <div class="panel reveal">
                 <h4><span class="k">MOBILE</span> The primary surface</h4>
-                <p>Bottom nav with safe-area inset, bottom sheets for every form, 100dvh layouts for notched devices. Everything reachable with a thumb.</p>
+                <p>Bottom nav, bottom sheets, safe areas. Everything reachable with a thumb.</p>
               </div>
               <div class="panel reveal" style="--d: 80ms">
                 <h4><span class="k">DESKTOP</span> The same product, wider</h4>
-                <p>Persistent sidebar, split-pane code view, inline modals instead of sheets, a wider chat column. Same components, different layout, nothing to relearn.</p>
+                <p>Sidebar, split-pane code view. Same components, nothing to relearn.</p>
               </div>
               <div class="panel reveal" style="--d: 160ms">
                 <h4><span class="k">LANDING</span> Two entrances</h4>
-                <p>Desktop landing: hero with a phone mockup, feature sections, trust signals (privacy, bring-your-own-key). Mobile: a swipeable 3-screen onboarding carousel instead of a long scroll, for faster time to signup.</p>
+                <p>Desktop: hero and features. Mobile: a 3-screen swipe onboarding instead of a long scroll.</p>
               </div>
             </div>
           </section>
@@ -669,7 +647,7 @@
                   <div class="swatch"><i style="background:#1E2735"></i><b>border</b>hairlines</div>
                   <div class="swatch"><i style="background:#0E1420"></i><b>code block</b>one step deeper</div>
                 </div>
-                <p class="wire-note" style="margin-top: 1rem">Semantic tokens (<span class="mono">--bg, --surface, --accent</span> and friends) for borders, shadows, code blocks and selection. The gradient is reserved for brand moments only; day-to-day UI uses the flat emerald.</p>
+                <p class="wire-note" style="margin-top: 1rem">Semantic tokens; the gradient is reserved for brand moments.</p>
               </div>
               <div class="panel spec-panel reveal" style="--d: 60ms">
                 <h4>Core components</h4>
@@ -693,7 +671,7 @@
                   <div><span class="sample" style="font-size:0.85rem; font-weight:400">Body 14-16, mobile-tuned</span><span class="spec">11-16px scale</span></div>
                   <div><span class="sample mono" style="font-size:0.78rem">code &amp; file paths, monospace</span><span class="spec">highlight.js</span></div>
                 </div>
-                <p class="wire-note" style="margin-top:1rem"><span class="mono">rounded-2xl</span> cards and <span class="mono">rounded-xl</span> buttons give a soft, modern feel that offsets the dark technical palette.</p>
+                <p class="wire-note" style="margin-top:1rem">Soft radii offset the dark technical palette.</p>
               </div>
               <div class="panel spec-panel reveal" style="--d: 180ms">
                 <h4>Motion &amp; touch</h4>
@@ -814,32 +792,32 @@
             <div class="challenge reveal">
               <h3><span class="k">14.1</span>Switching tabs without killing the agent stream</h3>
               <div class="tradeoff">
-                <div class="rejected"><h5>The naive way: separate pages</h5>Chat, terminal, and preview as separate routes. Clean code, terrible experience: navigating away unmounts the chat, and an in-flight streaming answer is lost. On mobile, where switching is constant, this happens all the time.</div>
-                <div class="shipped"><h5>Shipped: one shell, chat stays mounted</h5>The WorkspaceShell keeps the chat mounted and hidden when you switch to Terminal or Preview. Streams keep flowing in the background. This one decision is why the product survives real mobile usage.</div>
+                <div class="rejected"><h5>Separate pages</h5>Navigating away unmounts the chat; a streaming answer is lost.</div>
+                <div class="shipped"><h5>One shell, chat stays mounted</h5>Streams keep flowing behind Terminal and Preview.</div>
               </div>
             </div>
 
             <div class="challenge reveal">
               <h3><span class="k">14.2</span>Making code readable and selectable at 390px</h3>
               <div class="tradeoff">
-                <div class="rejected"><h5>Considered: pinch-zoom a desktop code view</h5>What every cloud IDE does on mobile. You spend more time panning than reading, and precise text selection with a finger is hopeless.</div>
-                <div class="shipped"><h5>Shipped: tap-to-select lines + Ask AI</h5>Lines are the selection unit, not characters. Tap lines to select them, then copy or send to the AI, with the file path and line numbers pre-filled. Selection became the main way people talk to the agent about code.</div>
+                <div class="rejected"><h5>Pinch-zoom a desktop view</h5>More panning than reading; finger selection is hopeless.</div>
+                <div class="shipped"><h5>Tap-to-select lines + Ask AI</h5>Lines are the unit. Tap, then ask, with file and line context pre-filled.</div>
               </div>
             </div>
 
             <div class="challenge reveal">
               <h3><span class="k">14.3</span>Keeping context visible on a small screen</h3>
               <div class="tradeoff">
-                <div class="rejected"><h5>Considered: hide context to save space</h5>Screen space is precious, and a context bar costs a row. The temptation is to drop it and trust the user's memory.</div>
-                <div class="shipped"><h5>Shipped: the context bar is never dropped</h5>Active project, connected repo, and branch are always shown in chat and file views. On a phone, memory is the scarcest resource. A row of pixels is cheaper than a wrong action on the wrong repo.</div>
+                <div class="rejected"><h5>Hide context to save space</h5>A context bar costs a row of pixels.</div>
+                <div class="shipped"><h5>The context bar never drops</h5>A row of pixels is cheaper than a wrong action on the wrong repo.</div>
               </div>
             </div>
 
             <div class="challenge reveal">
               <h3><span class="k">14.4</span>One form, two surfaces</h3>
               <div class="tradeoff">
-                <div class="rejected"><h5>Considered: desktop modals everywhere</h5>One modal component for all screens. On mobile, centered modals fight the keyboard, ignore the thumb, and feel like a website.</div>
-                <div class="shipped"><h5>Shipped: dual-surface modals</h5>The same form renders as a BottomSheet on mobile and a centered modal on desktop: connect repo, create project, Ask AI. One source of truth for the form, two native-feeling presentations.</div>
+                <div class="rejected"><h5>Desktop modals everywhere</h5>Centered modals fight the keyboard and ignore the thumb.</div>
+                <div class="shipped"><h5>Dual-surface modals</h5>One form, a BottomSheet on mobile and a modal on desktop.</div>
               </div>
             </div>
           </section>
@@ -851,30 +829,17 @@
               <h2>Shipped, live, and used for real work.</h2>
               <p class="cs-sub">Relay is in production on Vercel, used for real agent workflows on mobile and desktop.</p>
             </div>
-            <div class="prose reveal">
-              <h3>What shipped</h3>
+            <div class="stats reveal">
+              <div class="stat"><div class="v">Live</div><div class="l">In production, used for real work</div><div class="d">relay-code.com</div></div>
+              <div class="stat"><div class="v">2</div><div class="l">Surfaces: phone-native and full desktop</div><div class="d">one component set</div></div>
+              <div class="stat"><div class="v">9</div><div class="l">Product areas shipped, auth to settings</div><div class="d">end to end</div></div>
+              <div class="stat"><div class="v">1</div><div class="l">Tap from Hub to a working agent</div><div class="d">presets over prompts</div></div>
+            </div>
+            <div class="prose reveal" style="margin-top: 2rem">
               <ul>
-                <li>Full auth flow: register, login, OAuth, email verification</li>
-                <li>Hub dashboard with quick agents and project switching</li>
-                <li>Agent chat with streaming, visible tool calls, and skills integration</li>
-                <li>File browser with syntax highlighting, search, and tap-to-select → Ask AI</li>
-                <li>Cloud terminal (xterm.js) and live app preview in the workspace shell</li>
-                <li>Projects and repo management, with a PAT connect flow</li>
-                <li>Profile with stat cards, a 30-day activity heatmap, and agent memory topics</li>
-                <li>Settings: AI models and API keys, billing, repos, appearance, security, MCP tools</li>
-                <li>Landing page, features page, legal pages, light/dark theme</li>
-              </ul>
-              <h3>Lessons learned</h3>
-              <ul>
-                <li><strong>The hardest UX problems weren't visual polish.</strong> They were keeping repo context visible, not breaking agent streams when switching tabs, and making code readable and selectable on a small screen.</li>
-                <li><strong>Design for interruption first.</strong> Session URLs, mounted chat, saved history: every continuity feature earned its place the first time a train went into a tunnel.</li>
-                <li><strong>Presets beat prompts on mobile.</strong> Quick agents and suggestion chips carry most sessions. Free-text prompts are the escape hatch, not the main path.</li>
-              </ul>
-              <h3>What's next</h3>
-              <ul>
-                <li>Voice input for steering the agent, hands-free</li>
-                <li>Push notifications when a long agent run finishes</li>
-                <li>Deeper PR flows: review and merge from the same shell</li>
+                <li><strong>Design for interruption first.</strong> Sessions survive tunnels.</li>
+                <li><strong>Presets beat prompts on mobile.</strong> Free text is the escape hatch.</li>
+                <li><strong>The hard problems weren't visual.</strong> Context, streams, selection.</li>
               </ul>
             </div>
           </section>

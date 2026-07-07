@@ -353,6 +353,19 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   position: relative;
 }
 
+.hero-portrait {
+  width: clamp(84px, 9vw, 112px);
+  margin-bottom: 1.5rem;
+}
+.hero-portrait img {
+  aspect-ratio: 1;
+  object-fit: cover;
+  object-position: 50% 12%;
+  border-radius: 26px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow-card);
+}
+
 .hero-intro {
   font-family: var(--font-mono);
   font-size: var(--text-xs);
